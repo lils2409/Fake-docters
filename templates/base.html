@@ -1,47 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Login Form with Tailwind</title>
-    <!-- Include the Tailwind CSS CDN here for quick testing -->
+    <title>base</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
-<body class="flex items-center justify-center font-sans leading-relaxed min-h-screen bg-gray-100 flex-col m-0">
-    <div class="bg-white rounded-lg shadow-xl p-10 transition duration-200 w-full max-w-md text-center">
-        <h1 class="text-green-600 text-3xl font-bold mb-3">GeeksforGeeks</h1>
-        <h3 class="text-gray-600 mb-6">Enter your login credentials</h3>
-
-        <form action="">
-            <label for="first" class="block w-full mt-3 mb-1 text-left text-gray-600 font-bold">
-                Username:
-            </label>
-            <input type="text" id="first" name="first" 
-                placeholder="Enter your Username" required
-                class="block w-full mb-4 p-3 box-border border border-gray-300 rounded-md">
-
-            <label for="password" class="block w-full mt-3 mb-1 text-left text-gray-600 font-bold">
-                Password:
-            </label>
-            <input type="password" id="password" name="password" 
-                placeholder="Enter your Password" required
-                class="block w-full mb-4 p-3 box-border border border-gray-300 rounded-md">
-
-            <div class="flex justify-center items-center">
-                <button type="submit" class="p-4 rounded-lg mt-4 mb-4 border-none text-white cursor-pointer bg-green-600 w-full text-base hover:bg-green-700 transition duration-150">
-                    Submit
-                </button>
-            </div>
-        </form>
-        
-        <p>Not registered?
-            <a href="#" class="text-blue-500 hover:underline">
-                Create an account
-            </a>
-        </p>
+<body class="bg-[#eaf7f8] min-h-screen flex">
+    <!--nav bar-->
+    <aside class="w-64 bg-[#8fc5bc] flex flex-col p-5">
+        <h1 class="text-4xl font-bold mb-6 leading-none">
+            <span class="text-blue-900">MED</span><span class="text-blue-400">FLOW</span></h1>
+    </aside>
+    <div>
+        <!--main contain three top box for done wait total then next row is triage as box chart then view detail button-->
     </div>
 </body>
-
 </html>
