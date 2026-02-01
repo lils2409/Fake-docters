@@ -46,6 +46,59 @@
     <!--main content-->
     <main class="flex-1 p-6">
         <section class="bg-white/40 background-blur-xl rounded-3xl p-8 shadow-xl border border-white/30 min-h-full">
+            <h1 class="mt-2 text-3xl px-4 py-1 rounded-xl text-black font-bold">DASHBOARD</h1> <!--เปลี่ยนฟ้อน-->
+            <div class="mt-2 h-1 w-25 rounded-full bg-teal-600 "></div>
+            <!--3 cards-->
+            <div class="mt-4 grid grid-cols-3 gap-6">
+                <div class="rounded-2xl bg-blue-100 p-6 shadow-sm">
+                    <p class="text-sm text-gray-600">Total</p>
+                    <p class="mt-1 text-3xl font-semibold text-gray-900 ">99</p>
+                </div>
+                <div class="rounded-2xl bg-blue-100 p-6 shadow-sm">
+                    <p class="text-sm text-gray-600">Waiting</p>
+                    <p class="mt-1 text-3xl font-semibold text-gray-900">99</p>
+                </div>
+                <div class="rounded-2xl bg-blue-100 p-6 shadow-sm">
+                    <p class="text-sm text-gray-600">Done</p>
+                    <p class="mt-1 text-3xl font-semibold text-gray-900">99</p>
+                </div>
+            </div>
+            <!--ตรงนิอยากลองreactถ้าทัน ไม่ทันเด่วมาแก้-->
+            <!--tabbed--table-->
+            <div class="border-b border-gray-200 py-2">
+                <nav class="flex gap-8 px-6">
+                
+                <!-- ALL -->
+                <button class="relative px-5 py-2 text-sm font-semibold bg-white text-teal-700 rounded-t-lg border border-gray-300 border-b-white -mb-px transition-all duration-200">
+                All
+                </button>
+
+                <!-- BLUE -->
+                <button class="relative px-5 py-2 text-sm font-semibold bg-white text-teal-700 rounded-t-lg border border-gray-300 border-b-white -mb-px transition-all duration-200">
+                Green
+                </button>
+
+                <!-- GREEN -->
+                <button class="relative px-5 py-2 text-sm font-semibold bg-white text-teal-700 rounded-t-lg border border-gray-300 border-b-white -mb-px transition-all duration-200">
+                Blue
+                </button>
+
+                <!-- RED -->
+                <button class="relative px-5 py-2 text-sm font-semibold bg-white text-teal-700 rounded-t-lg border border-gray-300 border-b-white -mb-px transition-all duration-200">
+                Red
+                </button>
+
+                <!-- BLACK -->
+                <button class="relative px-5 py-2 text-sm font-semibold bg-white text-teal-700 rounded-t-lg border border-gray-300 border-b-white -mb-px transition-all duration-200">
+                Black
+                </button>
+
+                </nav>
+            </div>
+
+
+
+
 
         </section>
     </main>
