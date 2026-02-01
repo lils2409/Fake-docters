@@ -4,15 +4,49 @@
     <meta charset="UTF-8">
     <title>base</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-[#eaf7f8] min-h-screen flex">
-    <!--nav bar-->
-    <aside class="w-64 bg-[#8fc5bc] flex flex-col p-5">
+<body class="bg-[#EAF7F8] min-h-screen flex">
+    <!--side bar-->
+    <aside class="w-64 bg-gradient-to-b from-[#7FCBC3] to-[#6ABEB6] flex flex-col p-5">
         <h1 class="text-4xl font-bold mb-6 leading-none">
-            <span class="text-blue-900">MED</span><span class="text-blue-400">FLOW</span></h1>
+            <span class="text-blue-900">MED</span><span class="text-blue-400">FLOW</span>
+        </h1>
+        <!--
+        <div class="bg-white rounded-full px-4 py-2 mb-8 shadow">
+          Welcome, เด่วมาลอง เพิ่มชื่อuserที่กรอกดู
+        </div>
+        -->
+        <nav class="space-y-3">
+            <a href="dashboard.html" class="flex items-center gap-3 bg-white/70 backdrop-blur rounded-xl px-4 py-3 shadow-sm border border-white">
+                <i data-lucide="home" class="w-5 h-5"></i>
+                <span class="font-semibold text-xl">Dashboard</span>
+            </a>
+            <a href="add_patient.html" class="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/40 transition">
+                <i data-lucide="user-plus" class="w-5 h-5"></i>
+                <span class="font-semibold text-xl">Add Patient</span>
+            </a>
+            <a href="edit.html" class="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/40 transition">
+                <i data-lucide="user-pen" class="w-5 h-5"></i>
+                <span class="font-semibold text-xl">Edit</span>
+            </a>
+            <a href="status.html" class="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/40 transition">
+                <i data-lucide="user-round-check" class="w-5 h-5"></i>
+                <span class="font-semibold text-xl">Update status</span>
+            </a>
+        </nav>
     </aside>
-    <div>
-        <!--main contain three top box for done wait total then next row is triage as box chart then view detail button-->
-    </div>
+    <main class="flex-1 p-6">
+        <section class="bg-white/40 background-blur-xl rounded-3xl p-8 shadow-xl border border-white/30 min-h-full">
+
+        </section>
+    </main>
+
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+
 </body>
 </html>
