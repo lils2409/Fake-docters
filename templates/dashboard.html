@@ -47,7 +47,7 @@
 <main class="flex-1 p-6">
 <section class="bg-[#F6FBFC] rounded-3xl shadow-lg min-h-full p-8">
 
-<!-- ================= DASHBOARD ================= -->
+<!-- DASHBOARD -->
 <div id="dashboard" class="page">
     <h2 class="text-2xl font-semibold mb-6">Dashboard</h2>
 
@@ -78,7 +78,7 @@
     </div>
 </div>
 
-<!-- ================= ADD PATIENT ================= -->
+<!-- ADD PATIENT -->
 <div id="add" class="page hidden">
 <h2 class="text-2xl font-semibold mb-6">Add Patient</h2>
 
@@ -144,7 +144,7 @@ Save Patient
 </form>
 </div>
 
-<!-- ================= EDIT PATIENT ================= -->
+<!-- EDIT PATIENT -->
 <div id="edit" class="page hidden">
 <h2 class="text-2xl font-semibold mb-6">Edit Patient</h2>
 
@@ -350,7 +350,6 @@ async function loadStats(){
     document.getElementById("blackCount").innerText = data.colors.Black;
 }
 
-// load when page opens
 loadStats();
 
 lucide.createIcons();
