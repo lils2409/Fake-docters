@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Register User</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#EAF7F8] flex items-center justify-center min-h-screen">
+
+<div class="bg-white p-8 rounded-xl shadow w-full max-w-md">
+<h2 class="text-2xl font-bold mb-6">Register New User</h2>
+
+<form method="POST" class="space-y-4">
+<input name="username" placeholder="Username" class="w-full p-3 border rounded">
+<input name="password" type="password" placeholder="Password" class="w-full p-3 border rounded">
+
+<select name="role" class="w-full p-3 border rounded">
+<option value="staff">Staff</option>
+<option value="admin">Admin</option>
+</select>
+
+<button class="w-full py-3 bg-teal-500 text-white rounded">
+Create User
+</button>
+</form>
+</div>
+
+</body>
+</html>

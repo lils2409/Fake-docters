@@ -1,105 +1,171 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, jsonify, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.secret_key = "fake_doctors_secure_key"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hospital.db'
+
+# ================= CONFIG =================
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///patients.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.secret_key = "medflow-secret-key"
+
 db = SQLAlchemy(app)
 
-# --- 1. Database Model (ปรับตามหน้า UI ของคุณ) ---
+# ================= MODELS =================
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    password_hash = db.Column(db.String(200), nullable=False)
+
+
 class Patient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    patient_id = db.Column(db.String(20), unique=True, nullable=False) # Assign ID
+    patient_id = db.Column(db.String(20), unique=True, nullable=False)
+
     name = db.Column(db.String(100))
     surname = db.Column(db.String(100))
     sex = db.Column(db.String(10))
     age = db.Column(db.Integer)
     height = db.Column(db.Float)
     weight = db.Column(db.Float)
-    
-    # ข้อมูลอาการ (Symptom)
+
     chronic_disease = db.Column(db.String(200))
     allergy = db.Column(db.String(200))
     blood_pressure = db.Column(db.String(20))
     heart_rate = db.Column(db.String(20))
     case_desc = db.Column(db.Text)
     diagnosis = db.Column(db.Text)
-    
-    # สถานะและการจัดการ
-    color_code = db.Column(db.String(20)) # Green, Blue, Yellow, Red, Black
-    status = db.Column(db.String(20), default='Waiting') # Waiting / Finish
+
+    color_code = db.Column(db.String(20))
+    status = db.Column(db.String(20), default="Waiting")
     prescription = db.Column(db.Text)
+
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
 
 with app.app_context():
     db.create_all()
 
-# --- 2. Routes (เชื่อมโยงตามหน้าเว็บ) ---
-
-@app.route('/')
-def login_page():
-    return render_template('login.html')
-
-# Page 2: Dashboard
-@app.route('/dashboard')
-def dashboard():
-    # ดึงสถิติจำนวนคนไข้แยกตามสี
-    stats = {
-        'green': Patient.query.filter_by(color_code='green').count(),
-        'blue': Patient.query.filter_by(color_code='blue').count(),
-        'yellow': Patient.query.filter_by(color_code='yellow').count(),
-        'red': Patient.query.filter_by(color_code='red').count(),
-        'black': Patient.query.filter_by(color_code='black').count(),
-        'total_waiting': Patient.query.filter_by(status='Waiting').count()
-    }
-    return render_template('dashboard.html', stats=stats)
-
-# Page 3: Add Patient
-@app.route('/add_patient', methods=['GET', 'POST'])
-def add_patient():
-    if request.method == 'POST':
-        new_p = Patient(
-            patient_id=request.form.get('patient_id'),
-            name=request.form.get('name'),
-            surname=request.form.get('surname'),
-            sex=request.form.get('sex'),
-            age=request.form.get('age'),
-            color_code=request.form.get('color_code'), # จากปุ่มสีที่คุณทำไว้
-            status='Waiting'
+    if not User.query.filter_by(username="admin").first():
+        admin = User(
+            username="admin",
+            password_hash=generate_password_hash("admin123")
         )
-        db.session.add(new_p)
+        db.session.add(admin)
         db.session.commit()
-        flash('เพิ่มข้อมูลคนไข้ใหม่เรียบร้อยแล้ว')
-        return redirect(url_for('dashboard'))
-    return render_template('add_patient.html')
 
-# Page 4: Edit Information
-@app.route('/edit_patient/<pid>', methods=['GET', 'POST'])
-def edit_patient(pid):
-    patient = Patient.query.filter_by(patient_id=pid).first()
-    if request.method == 'POST' and patient:
-        patient.name = request.form.get('name')
-        # ... อัปเดตฟิลด์อื่นๆ ตามฟอร์ม ...
-        db.session.commit()
-        return redirect(url_for('dashboard'))
-    return render_template('edit.html', patient=patient)
+# ================= LOGIN ( / ) =================
+@app.route("/", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("uname")
+        password = request.form.get("pass")
 
-# Page 5: Update Status (หน้าจ่ายยา/ปิดเคส)
-@app.route('/update_status', methods=['GET', 'POST'])
-def update_status():
-    patient = None
-    if request.method == 'POST':
-        search_id = request.form.get('search_id')
-        patient = Patient.query.filter_by(patient_id=search_id).first()
-        
-        if 'update_action' in request.form: # เมื่อกดปุ่ม Update
-            patient.prescription = request.form.get('prescription')
-            patient.status = request.form.get('status_btn') # Waiting หรือ Finish
-            db.session.commit()
-            return redirect(url_for('dashboard'))
-            
-    return render_template('status.html', patient=patient)
+        user = User.query.filter_by(username=username).first()
 
-if __name__ == '__main__':
+        if user and check_password_hash(user.password_hash, password):
+            session["user_id"] = user.id
+            return redirect("/dashboard")
+        else:
+            return render_template("login.html", error="Invalid username or password")
+
+    return render_template("login.html")
+
+
+# ================= LOGOUT =================
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
+
+
+# ================= DASHBOARD ( /dashboard ) =================
+@app.route("/dashboard")
+def dashboard():
+    if "user_id" not in session:
+        return redirect("/")
+    return render_template("dashboard.html")
+
+
+# ================= ADD PATIENT =================
+@app.route("/add_patient", methods=["POST"])
+def add_patient():
+    data = request.form
+
+    patient = Patient(
+        patient_id=data.get("patient_id"),
+        name=data.get("name"),
+        surname=data.get("surname"),
+        sex=data.get("sex"),
+        age=data.get("age"),
+        height=data.get("height"),
+        weight=data.get("weight"),
+        chronic_disease=data.get("chronic_disease"),
+        allergy=data.get("allergy"),
+        blood_pressure=data.get("blood_pressure"),
+        heart_rate=data.get("heart_rate"),
+        case_desc=data.get("case_desc"),
+        diagnosis=data.get("diagnosis"),
+        color_code=data.get("color_code"),
+        status=data.get("status"),
+        prescription=data.get("prescription"),
+    )
+
+    db.session.add(patient)
+    db.session.commit()
+    return redirect("/dashboard")
+
+
+# ================= SEARCH =================
+@app.route("/search_patient")
+def search_patient():
+    q = request.args.get("q", "")
+
+    patient = Patient.query.filter(
+        (Patient.patient_id.ilike(f"%{q}%")) |
+        (Patient.name.ilike(f"%{q}%"))
+    ).first()
+
+    if not patient:
+        return jsonify(None)
+
+    return jsonify({c.name: getattr(patient, c.name) for c in patient.__table__.columns})
+
+
+# ================= UPDATE =================
+@app.route("/update_patient", methods=["POST"])
+def update_patient():
+    data = request.json
+    patient = Patient.query.get(data["id"])
+
+    if not patient:
+        return jsonify({"success": False})
+
+    for key, value in data.items():
+        setattr(patient, key, value)
+
+    db.session.commit()
+    return jsonify({"success": True})
+
+@app.route("/stats")
+def stats():
+    total = Patient.query.count()
+    waiting = Patient.query.filter_by(status="Waiting").count()
+    done = Patient.query.filter_by(status="Finish").count()
+
+    colors = {}
+    for c in ["Red", "Yellow", "Green", "White", "Black"]:
+        colors[c] = Patient.query.filter_by(color_code=c).count()
+
+    return jsonify({
+        "total": total,
+        "waiting": waiting,
+        "done": done,
+        "colors": colors
+    })
+
+
+# ================= RUN =================
+if __name__ == "__main__":
     app.run(debug=True)

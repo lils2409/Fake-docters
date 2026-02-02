@@ -2,112 +2,359 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>base</title>
+    <title>MedFlow Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-[#EAF7F8] min-h-screen flex">
-    <!--side bar-->
-    <aside class="w-64 bg-gradient-to-b from-[#7FCBC3] to-[#6ABEB6] flex flex-col p-5">
-        <h1 class="text-4xl font-bold mb-6 leading-none">
-            <span class="text-blue-900">MED</span><span class="text-blue-400">FLOW</span>
-        </h1>
-        <!--
-        <div class="bg-white rounded-full px-4 py-2 mb-8 shadow">
-          Welcome, เด่วมาลอง เพิ่มชื่อuserที่กรอกดู
+
+<body class="bg-[#EAF7F8] min-h-screen flex font-sans"
+
+<!-- SIDEBAR -->
+<aside class="w-64 bg-[#7FCBC3] flex flex-col px-6 py-8">
+
+    <!-- LOGO -->
+    <h1 class="text-3xl font-bold text-blue-600 mb-10">
+        MED<span class="text-teal-700">FLOW</span>
+    </h1>
+
+    <!-- NAV -->
+    <nav class="space-y-4 flex-1">
+        <button onclick="showPage('dashboard', this)"
+            class="nav-btn bg-white shadow">
+            <i data-lucide="home"></i> Dashboard
+        </button>
+
+        <button onclick="showPage('add', this)" class="nav-btn">
+            <i data-lucide="user-plus"></i> Add Patient
+        </button>
+
+        <button onclick="showPage('edit', this)" class="nav-btn">
+            <i data-lucide="user-pen"></i> Edit Patient
+        </button>
+
+    </nav>
+
+    <div class="border-t border-white/40 my-6"></div>
+
+    <!-- LOGOUT -->
+    <button onclick="logout()"
+        class="flex items-center gap-3 text-red-600 font-semibold hover:bg-white/20 px-4 py-3 rounded-xl transition">
+        <i data-lucide="log-out"></i> Log out
+    </button>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="flex-1 p-6">
+<section class="bg-[#F6FBFC] rounded-3xl shadow-lg min-h-full p-8">
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard" class="page">
+    <h2 class="text-2xl font-semibold mb-6">Dashboard</h2>
+
+    <!-- TOP STATS -->
+    <div class="grid grid-cols-3 gap-6 mb-10">
+        <div class="bg-white rounded-2xl p-6 shadow">
+            <p class="text-sm text-gray-500">Total Patients</p>
+            <p id="totalPatients" class="text-4xl font-bold text-gray-900">0</p>
         </div>
-        -->
-        <nav class="space-y-3 flex-1">
-            <a href="dashboard.html" class="flex items-center gap-3 bg-white/70 backdrop-blur rounded-xl px-4 py-3 shadow-sm border border-white">
-                <i data-lucide="home" class="w-5 h-5"></i>
-                <span class="font-semibold text-xl">Dashboard</span>
-            </a>
-            <a href="add_patient.html" class="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/40 transition">
-                <i data-lucide="user-plus" class="w-5 h-5"></i>
-                <span class="font-semibold text-xl">Add Patient</span>
-            </a>
-            <a href="edit.html" class="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/40 transition">
-                <i data-lucide="user-pen" class="w-5 h-5"></i>
-                <span class="font-semibold text-xl">Edit</span>
-            </a>
-            <a href="status.html" class="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/40 transition">
-                <i data-lucide="user-round-check" class="w-5 h-5"></i>
-                <span class="font-semibold text-xl">Update status</span>
-            </a>
-        </nav>
-        <div class="pt-4 border-t border-white/30">
-            <a href="login.html"
-            class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-700 hover:bg-red-500/10 transition">
-            <i data-lucide="log-out" class="w-5 h-5"></i>
-            <span class="font-semibold text-xl">Log out</span>
-        </a>
+        <div class="bg-white rounded-2xl p-6 shadow">
+            <p class="text-sm text-gray-500">Waiting</p>
+            <p id="waitingPatients" class="text-4xl font-bold text-yellow-500">0</p>
         </div>
-    </aside>
-    <!--main content-->
-    <main class="flex-1 p-6">
-        <section class="bg-white/40 background-blur-xl rounded-3xl p-8 shadow-xl border border-white/30 min-h-full">
-            <h1 class="mt-2 text-3xl px-4 py-1 rounded-xl text-black font-bold">DASHBOARD</h1> <!--เปลี่ยนฟ้อน-->
-            <div class="mt-2 h-1 w-25 rounded-full bg-teal-600 "></div>
-            <!--3 cards-->
-            <div class="mt-4 grid grid-cols-3 gap-6">
-                <div class="rounded-2xl bg-blue-100 p-6 shadow-sm">
-                    <p class="text-sm text-gray-600">Total</p>
-                    <p class="mt-1 text-3xl font-semibold text-gray-900 ">99</p>
-                </div>
-                <div class="rounded-2xl bg-blue-100 p-6 shadow-sm">
-                    <p class="text-sm text-gray-600">Waiting</p>
-                    <p class="mt-1 text-3xl font-semibold text-gray-900">99</p>
-                </div>
-                <div class="rounded-2xl bg-blue-100 p-6 shadow-sm">
-                    <p class="text-sm text-gray-600">Done</p>
-                    <p class="mt-1 text-3xl font-semibold text-gray-900">99</p>
-                </div>
-            </div>
-            <!--ตรงนิอยากลองreactถ้าทัน ไม่ทันเด่วมาแก้-->
-            <!--tabbed--table-->
-            <div class="border-b border-gray-200 py-2">
-                <nav class="flex gap-8 px-6">
-                
-                <!-- ALL -->
-                <button class="relative px-5 py-2 text-sm font-semibold bg-white text-teal-700 rounded-t-lg border border-gray-300 border-b-white -mb-px transition-all duration-200">
-                All
-                </button>
+        <div class="bg-white rounded-2xl p-6 shadow">
+            <p class="text-sm text-gray-500">Done</p>
+            <p id="donePatients" class="text-4xl font-bold text-green-600">0</p>
+        </div>
+    </div>
 
-                <!-- BLUE -->
-                <button class="relative px-5 py-2 text-sm font-semibold bg-white text-teal-700 rounded-t-lg border border-gray-300 border-b-white -mb-px transition-all duration-200">
-                Green
-                </button>
+    <!-- TRIAGE LEVELS -->
+    <h3 class="text-xl font-semibold mb-4">Triage Levels</h3>
+    <div class="grid grid-cols-5 gap-4">
+        <div class="triage bg-red-100 text-red-700">Red<br><span id="redCount">0</span></div>
+        <div class="triage bg-yellow-100 text-yellow-700">Yellow<br><span id="yellowCount">0</span></div>
+        <div class="triage bg-green-100 text-green-700">Green<br><span id="greenCount">0</span></div>
+        <div class="triage bg-gray-100 text-gray-700">White<br><span id="whiteCount">0</span></div>
+        <div class="triage bg-black text-white">Black<br><span id="blackCount">0</span></div>
+    </div>
+</div>
 
-                <!-- GREEN -->
-                <button class="relative px-5 py-2 text-sm font-semibold bg-white text-teal-700 rounded-t-lg border border-gray-300 border-b-white -mb-px transition-all duration-200">
-                Blue
-                </button>
+<!-- ================= ADD PATIENT ================= -->
+<div id="add" class="page hidden">
+<h2 class="text-2xl font-semibold mb-6">Add Patient</h2>
 
-                <!-- RED -->
-                <button class="relative px-5 py-2 text-sm font-semibold bg-white text-teal-700 rounded-t-lg border border-gray-300 border-b-white -mb-px transition-all duration-200">
-                Red
-                </button>
+<form method="POST" action="/add_patient" class="space-y-6 max-w-3xl">
 
-                <!-- BLACK -->
-                <button class="relative px-5 py-2 text-sm font-semibold bg-white text-teal-700 rounded-t-lg border border-gray-300 border-b-white -mb-px transition-all duration-200">
-                Black
-                </button>
+<div class="bg-white rounded-2xl p-6 shadow">
+<h3 class="font-semibold mb-4">Basic Information</h3>
+<div class="grid grid-cols-2 gap-4">
+<input name="patient_id" placeholder="Patient ID" class="input">
+<input name="name" placeholder="Name" class="input">
+<input name="surname" placeholder="Surname" class="input">
+<select name="sex" class="input">
+<option value="">Sex</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+<input name="age" type="number" placeholder="Age" class="input">
+<input name="height" placeholder="Height (cm)" class="input">
+<input name="weight" placeholder="Weight (kg)" class="input">
+</div>
+</div>
 
-                </nav>
-            </div>
+<div class="bg-white rounded-2xl p-6 shadow">
+<h3 class="font-semibold mb-4">Medical Information</h3>
+<div class="grid grid-cols-2 gap-4">
+<input name="chronic_disease" placeholder="Chronic Disease" class="input">
+<input name="allergy" placeholder="Allergy" class="input">
+<input name="blood_pressure" placeholder="Blood Pressure" class="input">
+<input name="heart_rate" placeholder="Heart Rate" class="input">
+</div>
+<textarea name="case_desc" class="input mt-4" rows="3" placeholder="Case Description"></textarea>
+<textarea name="diagnosis" class="input mt-4" rows="3" placeholder="Diagnosis"></textarea>
+</div>
 
+<div class="bg-white rounded-2xl p-6 shadow">
+<h3 class="font-semibold mb-4">Triage & Status</h3>
 
+<div class="flex items-center gap-4 mb-4">
+<div id="triageColor" class="w-10 h-10 rounded-xl bg-gray-300 border"></div>
+<select name="color_code" onchange="updateTriageColor(this.value)" class="input flex-1">
+<option value="">Select Triage</option>
+<option value="Red">Red</option>
+<option value="Yellow">Yellow</option>
+<option value="Green">Green</option>
+<option value="White">White</option>
+<option value="Black">Black</option>
+</select>
+</div>
 
+<select name="status" class="input">
+<option value="Waiting">Waiting</option>
+<option value="Finish">Finish</option>
+</select>
 
+<textarea name="prescription" class="input mt-4" rows="3" placeholder="Prescription"></textarea>
+</div>
 
-        </section>
-    </main>
+<button class="w-full bg-teal-500 hover:bg-teal-400 text-white font-semibold py-4 rounded-2xl shadow transition">
+Save Patient
+</button>
 
+</form>
+</div>
 
-    <script>
-        lucide.createIcons();
-    </script>
+<!-- ================= EDIT PATIENT ================= -->
+<div id="edit" class="page hidden">
+<h2 class="text-2xl font-semibold mb-6">Edit Patient</h2>
 
+<!-- SEARCH -->
+<input id="searchEdit"
+    placeholder="Search by Patient ID or Name"
+    class="input max-w-md mb-6"
+    onkeyup="searchPatient()">
+
+<!-- FORM -->
+<div id="editForm" class="hidden space-y-6 max-w-3xl">
+
+<div class="bg-white rounded-2xl p-6 shadow">
+<h3 class="font-semibold mb-4">Basic Information</h3>
+<div class="grid grid-cols-2 gap-4">
+<input type="hidden" id="edit_id">
+
+<input id="edit_patient_id" class="input" placeholder="Patient ID">
+<input id="edit_name" class="input" placeholder="Name">
+<input id="edit_surname" class="input" placeholder="Surname">
+
+<select id="edit_sex" class="input">
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+
+<input id="edit_age" type="number" class="input" placeholder="Age">
+<input id="edit_height" class="input" placeholder="Height (cm)">
+<input id="edit_weight" class="input" placeholder="Weight (kg)">
+</div>
+</div>
+
+<div class="bg-white rounded-2xl p-6 shadow">
+<h3 class="font-semibold mb-4">Medical Information</h3>
+<div class="grid grid-cols-2 gap-4">
+<input id="edit_chronic" class="input" placeholder="Chronic Disease">
+<input id="edit_allergy" class="input" placeholder="Allergy">
+<input id="edit_bp" class="input" placeholder="Blood Pressure">
+<input id="edit_hr" class="input" placeholder="Heart Rate">
+</div>
+
+<textarea id="edit_case" class="input mt-4" rows="3" placeholder="Case Description"></textarea>
+<textarea id="edit_diag" class="input mt-4" rows="3" placeholder="Diagnosis"></textarea>
+</div>
+
+<div class="bg-white rounded-2xl p-6 shadow">
+<h3 class="font-semibold mb-4">Triage & Status</h3>
+
+<div class="flex items-center gap-4 mb-4">
+<div id="editTriageColor" class="w-10 h-10 rounded-xl border"></div>
+<select id="edit_color"
+    onchange="updateEditColor(this.value)"
+    class="input flex-1">
+<option>Red</option>
+<option>Yellow</option>
+<option>Green</option>
+<option>White</option>
+<option>Black</option>
+</select>
+</div>
+
+<select id="edit_status" class="input">
+<option>Waiting</option>
+<option>Finish</option>
+</select>
+
+<textarea id="edit_prescription" class="input mt-4" rows="3" placeholder="Prescription"></textarea>
+</div>
+
+<button onclick="saveEdit()"
+    class="w-full bg-teal-500 hover:bg-teal-400 text-white font-semibold py-4 rounded-2xl shadow transition">
+Save Changes
+</button>
+
+</div>
+</div>
+
+<div id="status" class="page hidden">
+<h2 class="text-2xl font-semibold">Update Status (Coming Soon)</h2>
+</div>
+
+</section>
+</main>
+
+<!-- STYLES -->
+<style>
+.nav-btn{
+display:flex;gap:12px;align-items:center;width:100%;
+padding:12px 16px;border-radius:12px;font-weight:600;
+}
+.nav-btn:hover{background:rgba(255,255,255,.4);}
+.input{
+width:100%;padding:12px 16px;border-radius:12px;
+border:1px solid #D1D5DB;outline:none;
+}
+.input:focus{
+border-color:#2DD4BF;
+box-shadow:0 0 0 2px rgba(45,212,191,.3);
+}
+.triage{
+text-align:center;padding:16px;border-radius:12px;font-weight:600;
+}
+.triage span{font-size:1.5rem;font-weight:700;}
+</style>
+
+<!-- SCRIPT -->
+<script>
+function showPage(id, btn){
+document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('bg-white','shadow'));
+btn.classList.add('bg-white','shadow');
+}
+
+function logout(){
+    window.location.href = "/logout";
+}
+
+function updateTriageColor(val){
+const c={Red:"#F87171",Yellow:"#FACC15",Green:"#4ADE80",White:"#E5E7EB",Black:"#111827"};
+document.getElementById("triageColor").style.background=c[val]||"#D1D5DB";
+}
+
+function updateEditColor(val){
+const c={Red:"#F87171",Yellow:"#FACC15",Green:"#4ADE80",White:"#E5E7EB",Black:"#111827"};
+document.getElementById("editTriageColor").style.background=c[val]||"#D1D5DB";
+}
+
+async function searchPatient(){
+const q=document.getElementById("searchEdit").value;
+if(q.length<2) return;
+
+const r=await fetch(`/search_patient?q=${q}`);
+const d=await r.json();
+if(!d) return;
+
+document.getElementById("editForm").classList.remove("hidden");
+
+edit_id.value=d.id;
+edit_patient_id.value=d.patient_id;
+edit_name.value=d.name;
+edit_surname.value=d.surname;
+edit_sex.value=d.sex;
+edit_age.value=d.age;
+edit_height.value=d.height;
+edit_weight.value=d.weight;
+
+edit_chronic.value=d.chronic_disease;
+edit_allergy.value=d.allergy;
+edit_bp.value=d.blood_pressure;
+edit_hr.value=d.heart_rate;
+edit_case.value=d.case_desc;
+edit_diag.value=d.diagnosis;
+
+edit_color.value=d.color_code;
+edit_status.value=d.status;
+edit_prescription.value=d.prescription;
+
+updateEditColor(d.color_code);
+}
+
+async function saveEdit(){
+await fetch("/update_patient",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+id:edit_id.value,
+patient_id:edit_patient_id.value,
+name:edit_name.value,
+surname:edit_surname.value,
+sex:edit_sex.value,
+age:edit_age.value,
+height:edit_height.value,
+weight:edit_weight.value,
+chronic_disease:edit_chronic.value,
+allergy:edit_allergy.value,
+blood_pressure:edit_bp.value,
+heart_rate:edit_hr.value,
+case_desc:edit_case.value,
+diagnosis:edit_diag.value,
+color_code:edit_color.value,
+status:edit_status.value,
+prescription:edit_prescription.value
+})
+});
+
+alert("Patient updated successfully");
+}
+
+async function loadStats(){
+    const res = await fetch("/stats");
+    const data = await res.json();
+
+    document.getElementById("totalPatients").innerText = data.total;
+    document.getElementById("waitingPatients").innerText = data.waiting;
+    document.getElementById("donePatients").innerText = data.done;
+
+    document.getElementById("redCount").innerText = data.colors.Red;
+    document.getElementById("yellowCount").innerText = data.colors.Yellow;
+    document.getElementById("greenCount").innerText = data.colors.Green;
+    document.getElementById("whiteCount").innerText = data.colors.White;
+    document.getElementById("blackCount").innerText = data.colors.Black;
+}
+
+// load when page opens
+loadStats();
+
+lucide.createIcons();
+</script>
 
 </body>
 </html>
