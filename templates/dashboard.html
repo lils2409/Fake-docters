@@ -7,10 +7,11 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
-<body class="bg-[#EAF7F8] h-screen overflow-hidden flex font-sans">
+<script src="./script.js"></script>
+<body class="bg-[#EAF7F8] min-h-screen flex font-sans"
 
 <!-- SIDEBAR -->
-<aside class="w-64 bg-[#7FCBC3] flex flex-col p-4 h-screen">
+<aside class="w-64 bg-[#7FCBC3] flex flex-col px-6 py-8">
 
     <!-- LOGO -->
     <h1 class="text-3xl font-bold text-blue-600 mb-10">
@@ -28,7 +29,7 @@
             <i data-lucide="user-plus"></i> Add Patient
         </button>
 
-        <button onclick="showPage('edit', this)" class="nav-btn mt-6">
+        <button onclick="showPage('edit', this)" class="nav-btn">
             <i data-lucide="user-pen"></i> Edit Patient
         </button>
 
@@ -44,7 +45,7 @@
 </aside>
 
 <!-- MAIN CONTENT -->
-<main class="flex-1 p-8 h-screen overflow-y-auto ">
+<main class="flex-1 p-6">
 <section class="bg-[#F6FBFC] rounded-3xl shadow-lg min-h-full p-8">
 
 <!-- DASHBOARD -->
@@ -80,69 +81,95 @@
 
 <!-- ADD PATIENT -->
 <div id="add" class="page hidden">
-<h2 class="text-2xl font-semibold mb-6">Add Patient</h2>
+  <h2 class="text-2xl font-semibold mb-6">Add Patient</h2>
 
-<form method="POST" action="/add_patient" class="space-y-6 max-w-3xl">
+  <!-- Step indicator -->
+  <div class="flex gap-6 mb-8">
+    <div class="step-indicator active">1. Basic</div>
+    <div class="step-indicator">2. Medical</div>
+    <div class="step-indicator">3. Triage</div>
+  </div>
 
-<div class="bg-white rounded-2xl p-6 shadow">
-<h3 class="font-semibold mb-4">Basic Information</h3>
-<div class="grid grid-cols-2 gap-4">
-<input name="patient_id" placeholder="Patient ID" class="input">
-<input name="name" placeholder="Name" class="input">
-<input name="surname" placeholder="Surname" class="input">
-<select name="sex" class="input">
-<option value="">Sex</option>
-<option>Male</option>
-<option>Female</option>
-<option>Other</option>
-</select>
-<input name="age" type="number" placeholder="Age" class="input">
-<input name="height" placeholder="Height (cm)" class="input">
-<input name="weight" placeholder="Weight (kg)" class="input">
+  <form method="POST" action="/add_patient" id="addPatientForm" class="max-w-3xl">
+
+    <!-- STEP 1 -->
+    <div class="step" data-step="1">
+      <div class="bg-white rounded-2xl p-6 shadow">
+        <h3 class="font-semibold mb-4">Basic Information</h3>
+
+        <div class="grid grid-cols-2 gap-4">
+          <input name="patient_id" class="input" placeholder="Patient ID" required>
+          <input name="name" class="input" placeholder="Name" required>
+          <input name="surname" class="input" placeholder="Surname" required>
+
+          <select name="sex" class="input" required>
+            <option value="">Sex</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+
+          <input name="age" type="number" class="input" placeholder="Age" required>
+          <input name="height" class="input" placeholder="Height (cm)" required>
+          <input name="weight" class="input" placeholder="Weight (kg)" required>
+        </div>
+      </div>
+
+      <div class="flex justify-end mt-6">
+        <button type="button" class="btn-primary" onclick="nextStep()">
+          Next
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step hidden" data-step="2">
+      <div class="bg-white rounded-2xl p-6 shadow">
+        <h3 class="font-semibold mb-4">Medical Information</h3>
+
+        <div class="grid grid-cols-2 gap-4">
+          <input name="chronic_disease" class="input" required placeholder="Chronic Disease">
+          <input name="allergy" class="input" required placeholder="Allergy">
+          <input name="blood_pressure" class="input" required placeholder="Blood Pressure">
+          <input name="heart_rate" class="input" required placeholder="Heart Rate">
+        </div>
+      </div>
+
+      <div class="flex justify-between mt-6">
+        <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
+        <button type="button" class="btn-primary" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step hidden" data-step="3">
+      <div class="bg-white rounded-2xl p-6 shadow">
+        <h3 class="font-semibold mb-4">Triage</h3>
+
+        <div class="flex items-center gap-4 mb-4">
+          <div id="triageColor" class="w-10 h-10 rounded-xl bg-gray-300 border"></div>
+          <select name="color_code" class="input" onchange="updateTriageColor(this.value)" required>
+            <option value="">Select Triage</option>
+            <option>Red</option>
+            <option>Yellow</option>
+            <option>Green</option>
+            <option>White</option>
+            <option>Black</option>
+          </select>
+        </div>
+
+        <textarea name="prescription" class="input" rows="3" placeholder="Prescription" required></textarea>
+      </div>
+
+      <div class="flex justify-between mt-6">
+        <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
+        <button type="submit" class="btn-primary">Save Patient</button>
+      </div>
+    </div>
+
+  </form>
 </div>
-</div>
 
-<div class="bg-white rounded-2xl p-6 shadow">
-<h3 class="font-semibold mb-4">Medical Information</h3>
-<div class="grid grid-cols-2 gap-4">
-<input name="chronic_disease" placeholder="Chronic Disease" class="input">
-<input name="allergy" placeholder="Allergy" class="input">
-<input name="blood_pressure" placeholder="Blood Pressure" class="input">
-<input name="heart_rate" placeholder="Heart Rate" class="input">
-</div>
-<textarea name="case_desc" class="input mt-4" rows="3" placeholder="Case Description"></textarea>
-<textarea name="diagnosis" class="input mt-4" rows="3" placeholder="Diagnosis"></textarea>
-</div>
-
-<div class="bg-white rounded-2xl p-6 shadow">
-<h3 class="font-semibold mb-4">Triage & Status</h3>
-
-<div class="flex items-center gap-4 mb-4">
-<div id="triageColor" class="w-10 h-10 rounded-xl bg-gray-300 border"></div>
-<select name="color_code" onchange="updateTriageColor(this.value)" class="input flex-1">
-<option value="">Select Triage</option>
-<option value="Red">Red</option>
-<option value="Yellow">Yellow</option>
-<option value="Green">Green</option>
-<option value="White">White</option>
-<option value="Black">Black</option>
-</select>
-</div>
-
-<select name="status" class="input">
-<option value="Waiting">Waiting</option>
-<option value="Finish">Finish</option>
-</select>
-
-<textarea name="prescription" class="input mt-4" rows="3" placeholder="Prescription"></textarea>
-</div>
-
-<button class="w-full bg-teal-500 hover:bg-teal-400 text-white font-semibold py-4 rounded-2xl shadow transition">
-Save Patient
-</button>
-
-</form>
-</div>
 
 <!-- EDIT PATIENT -->
 <div id="edit" class="page hidden">
