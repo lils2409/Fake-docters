@@ -1,15 +1,16 @@
 let currentStep = 1;
 
 function showStep(step) {
-  document.querySelectorAll('.step').forEach(s =>
-    s.classList.add('hidden')
-  );
+  // show form step
+  document.querySelectorAll('.step').forEach(s => s.classList.add('hidden'));
+  document.querySelector(`.step[data-step="${step}"]`).classList.remove('hidden');
 
-  document.querySelector(`.step[data-step="${step}"]`)
-    .classList.remove('hidden');
-
-  document.querySelectorAll('.step-indicator').forEach((el, i) => {
-    el.classList.toggle('active', i + 1 === step);
+  // update vertical stepper
+  document.querySelectorAll('.stepper-item').forEach(item => {
+    item.classList.remove('active');
+    if (Number(item.dataset.step) === step) {
+      item.classList.add('active');
+    }
   });
 
   currentStep = step;

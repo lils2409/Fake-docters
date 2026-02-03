@@ -5,6 +5,37 @@
     <title>MedFlow Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .step-circle {
+        width: 32px;
+        height: 32px;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        background-color: #e5e7eb; /* gray-200 */
+        color: #6b7280;           /* gray-500 */
+        border: 2px solid #d1d5db;/* gray-300 */
+        z-index: 10;
+      }
+
+      .step-label {
+        color: #9ca3af; /* gray-400 */
+        font-weight: 500;
+      }
+
+      .stepper-item.active .step-circle {
+        background-color: #10b981; /* green-500 */
+        border-color: #10b981;
+        color: #ffffff;
+      }
+
+      .stepper-item.active .step-label {
+        color: #059669; /* green-600 */
+      }
+    </style>
+
 </head>
 
 <script src="./script.js"></script>
@@ -81,48 +112,85 @@
 
 <!-- ADD PATIENT -->
 <div id="add" class="page hidden">
-  <h2 class="text-2xl font-semibold mb-6">Add Patient</h2>
+  <div class="flex justify-center px-8 py-10">
+  <div class="w-full max-w-6xl">
 
-  <!-- Step indicator -->
-  <div class="flex gap-6 mb-8">
-    <div class="step-indicator active">1. Basic</div>
-    <div class="step-indicator">2. Medical</div>
-    <div class="step-indicator">3. Triage</div>
-  </div>
+    <!-- Title -->
+    <h2 class="text-2xl font-semibold mb-8">Add Patient</h2>
 
-  <form method="POST" action="/add_patient" id="addPatientForm" class="max-w-3xl">
+    <div class="flex gap-12">
+
+      <!-- LEFT: Stepper -->
+<aside class="w-56 pt-6">
+  <div class="pl-6">
 
     <!-- STEP 1 -->
-    <div class="step" data-step="1">
-      <div class="bg-white rounded-2xl p-6 shadow">
-        <h3 class="font-semibold mb-4">Basic Information</h3>
-
-        <div class="grid grid-cols-2 gap-4">
-          <input name="patient_id" class="input" placeholder="Patient ID" required>
-          <input name="name" class="input" placeholder="Name" required>
-          <input name="surname" class="input" placeholder="Surname" required>
-
-          <select name="sex" class="input" required>
-            <option value="">Sex</option>
-            <option>Male</option>
-            <option>Female</option>
-            <option>Other</option>
-          </select>
-
-          <input name="age" type="number" class="input" placeholder="Age" required>
-          <input name="height" class="input" placeholder="Height (cm)" required>
-          <input name="weight" class="input" placeholder="Weight (kg)" required>
-        </div>
+    <div class="stepper-item flex items-start gap-4" data-step="1">
+      <div class="flex flex-col items-center">
+        <div class="step-circle">1</div>
+        <div class="w-px h-12 bg-gray-300"></div>
       </div>
-
-      <div class="flex justify-end mt-6">
-        <button type="button" class="btn-primary" onclick="nextStep()">
-          Next
-        </button>
-      </div>
+      <span class="step-label mt-1">General</span>
     </div>
 
     <!-- STEP 2 -->
+    <div class="stepper-item flex items-start gap-4" data-step="2">
+      <div class="flex flex-col items-center">
+        <div class="step-circle">2</div>
+        <div class="w-px h-12 bg-gray-300"></div>
+      </div>
+      <span class="step-label mt-1">Medical</span>
+    </div>
+
+    <!-- STEP 3 (LAST – no line) -->
+    <div class="stepper-item flex items-start gap-4" data-step="3">
+      <div class="flex flex-col items-center">
+        <div class="step-circle">3</div>
+      </div>
+      <span class="step-label mt-1">Triage & Status</span>
+    </div>
+
+  </div>
+</aside>
+
+      <!-- RIGHT: Form -->
+      <main class="flex-1 flex justify-center">
+        <div class="w-full max-w-3xl bg-white rounded-2xl shadow p-8">
+
+          <!-- STEP 1 -->
+          <div class="step" data-step="1">
+            <h3 class="font-semibold text-lg mb-6">Basic Information</h3>
+
+            <div class="grid grid-cols-2 gap-4">
+              <input name="patient_id" class="input" placeholder="Patient ID" required>
+              <input name="name" class="input" placeholder="Name" required>
+
+              <input name="surname" class="input" placeholder="Surname" required>
+              <select name="sex" class="input" required>
+                <option value="">Sex</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+
+              <input name="age" type="number" class="input" placeholder="Age" required>
+              <input name="height" class="input" placeholder="Height (cm)" required>
+
+              <input name="weight" class="input col-span-2" placeholder="Weight (kg)" required>
+            </div>
+
+            <!-- Button -->
+            <div class="flex justify-end mt-10">
+              <button
+                type="button"
+                onclick="nextStep(1)"
+                class="bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow transition"
+              >
+                Next →
+              </button>
+            </div>
+          </div>
+          <!-- STEP 2 -->
     <div class="step hidden" data-step="2">
       <div class="bg-white rounded-2xl p-6 shadow">
         <h3 class="font-semibold mb-4">Medical Information</h3>
@@ -136,8 +204,8 @@
       </div>
 
       <div class="flex justify-between mt-6">
-        <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
-        <button type="button" class="btn-primary" onclick="nextStep()">Next</button>
+        <button type="button" class="btn-secondary bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow transition" onclick="prevStep()">Back</button>
+        <button type="button" class="btn-primary bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow transition" onclick="nextStep()">Next</button>
       </div>
     </div>
 
@@ -162,12 +230,16 @@
       </div>
 
       <div class="flex justify-between mt-6">
-        <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
-        <button type="submit" class="btn-primary">Save Patient</button>
+        <button type="button" class="btn-secondary bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow transition" onclick="prevStep()">Back</button>
+        <button type="submit" class="btn-primary bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow transition">Save Patient</button>
       </div>
     </div>
 
-  </form>
+        </div>
+      </main>
+
+    </div>
+  </div>
 </div>
 
 
