@@ -51,6 +51,110 @@ document.addEventListener('DOMContentLoaded', () => {
   showStep(1);
 });
 
+<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", () => {
   showPage("dashboard", document.querySelector(".nav-btn"));
 });
+=======
+function showPage(id, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('bg-white','shadow'));
+  btn.classList.add('bg-white','shadow');
+}
+
+function logout(){
+  window.location.href = "/logout";
+}
+
+function updateTriageColor(val){
+  const c={Red:"#F87171",Yellow:"#FACC15",Green:"#4ADE80",White:"#E5E7EB",Black:"#111827"};
+  document.getElementById("triageColor").style.background=c[val]||"#D1D5DB";
+}
+
+function updateEditColor(val){
+  const c={Red:"#F87171",Yellow:"#FACC15",Green:"#4ADE80",White:"#E5E7EB",Black:"#111827"};
+  document.getElementById("editTriageColor").style.background=c[val]||"#D1D5DB";
+}
+
+async function searchPatient(){
+  const q=document.getElementById("searchEdit").value;
+  if(q.length<2) return;
+
+  const r=await fetch(`/search_patient?q=${q}`);
+  const d=await r.json();
+  if(!d) return;
+
+  document.getElementById("editForm").classList.remove("hidden");
+
+  edit_id.value=d.id;
+  edit_patient_id.value=d.patient_id;
+  edit_name.value=d.name;
+  edit_surname.value=d.surname;
+  edit_sex.value=d.sex;
+  edit_age.value=d.age;
+  edit_height.value=d.height;
+  edit_weight.value=d.weight;
+
+  edit_chronic.value=d.chronic_disease;
+  edit_allergy.value=d.allergy;
+  edit_bp.value=d.blood_pressure;
+  edit_hr.value=d.heart_rate;
+  edit_case.value=d.case_desc;
+  edit_diag.value=d.diagnosis;
+
+  edit_color.value=d.color_code;
+  edit_status.value=d.status;
+  edit_prescription.value=d.prescription;
+
+  updateEditColor(d.color_code);
+}
+
+async function saveEdit(){
+  await fetch("/update_patient",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      id:edit_id.value,
+      patient_id:edit_patient_id.value,
+      name:edit_name.value,
+      surname:edit_surname.value,
+      sex:edit_sex.value,
+      age:edit_age.value,
+      height:edit_height.value,
+      weight:edit_weight.value,
+      chronic_disease:edit_chronic.value,
+      allergy:edit_allergy.value,
+      blood_pressure:edit_bp.value,
+      heart_rate:edit_hr.value,
+      case_desc:edit_case.value,
+      diagnosis:edit_diag.value,
+      color_code:edit_color.value,
+      status:edit_status.value,
+      prescription:edit_prescription.value
+    })
+  });
+
+  alert("Patient updated successfully");
+}
+
+async function loadStats(){
+  const res = await fetch("/stats");
+  const data = await res.json();
+
+  document.getElementById("totalPatients").innerText = data.total;
+  document.getElementById("waitingPatients").innerText = data.waiting;
+  document.getElementById("donePatients").innerText = data.done;
+
+  document.getElementById("redCount").innerText = data.colors.Red;
+  document.getElementById("yellowCount").innerText = data.colors.Yellow;
+  document.getElementById("greenCount").innerText = data.colors.Green;
+  document.getElementById("whiteCount").innerText = data.colors.White;
+  document.getElementById("blackCount").innerText = data.colors.Black;
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  loadStats();
+  lucide.createIcons();
+});
+>>>>>>> 493709f7dd1036e19531a80791a3bdc3aabd98c9
