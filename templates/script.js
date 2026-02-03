@@ -50,3 +50,7 @@ function updateTriageColor(value) {
 document.addEventListener('DOMContentLoaded', () => {
   showStep(1);
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  showPage("dashboard", document.querySelector(".nav-btn"));
+});
