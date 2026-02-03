@@ -41,7 +41,7 @@ class Patient(db.Model):
     status = db.Column(db.String(20), default="Waiting")
     prescription = db.Column(db.Text)
 
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, default=datetime.now)
 
 
 with app.app_context():
