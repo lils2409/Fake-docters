@@ -17,7 +17,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.String(200), nullable=False)
-
+    role = db.Column(db.String(10), nullable=False)
 
 class Patient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -50,7 +50,8 @@ with app.app_context():
     if not User.query.filter_by(username="admin").first():
         admin = User(
             username="admin",
-            password_hash=generate_password_hash("admin123")
+            password_hash=generate_password_hash("admin123"),
+            role="admin"
         )
         db.session.add(admin)
         db.session.commit()
@@ -66,6 +67,7 @@ def login():
 
         if user and check_password_hash(user.password_hash, password):
             session["user_id"] = user.id
+            session["role"] = user.role
             return redirect("/dashboard")
         else:
             return render_template("login.html", error="Invalid username or password")
@@ -85,7 +87,7 @@ def logout():
 def dashboard():
     if "user_id" not in session:
         return redirect("/")
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", role=session.get("role"))
 
 
 # ================= ADD PATIENT =================
@@ -165,6 +167,30 @@ def stats():
         "colors": colors
     })
 
+# ================= REGISTER =================
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if "user_id" not in session or session.get("role") != "admin":
+        return redirect("/dashboard")
+
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        role = request.form.get("role")
+
+        if User.query.filter_by(username=username).first():
+            return render_template("register.html", error="Username already exists")
+
+        user = User(
+            username=username,
+            password_hash=generate_password_hash(password),
+            role=role
+        )
+        db.session.add(user)
+        db.session.commit()
+        return redirect("/dashboard")
+
+    return render_template("register.html")
 
 # ================= RUN =================
 if __name__ == "__main__":
