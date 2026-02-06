@@ -38,11 +38,10 @@
 
 </head>
 
-<script src="script.js"></script>
-<body class="bg-[#EAF7F8] min-h-screen flex font-sans">
+<body class="bg-[#EAF7F8] h-screen overflow-hidden flex font-sans">
 
 <!-- SIDEBAR -->
-<aside class="w-64 bg-[#7FCBC3] flex flex-col px-6 py-8">
+<aside class="w-64 bg-[#7FCBC3] flex flex-col px-6 py-8 h-screen overflow-hidden">
 
     <!-- LOGO -->
     <h1 class="text-3xl font-bold text-blue-600 mb-10">
@@ -76,7 +75,7 @@
 </aside>
 
 <!-- MAIN CONTENT -->
-<main class="flex-1 p-6">
+<main class="flex-1 p-6 overflow-y-auto">
 <section class="bg-[#F6FBFC] rounded-3xl shadow-lg min-h-full p-8">
 
 <!-- DASHBOARD -->
@@ -108,6 +107,62 @@
         <div class="triage bg-gray-100 text-gray-700">White<br><span id="whiteCount">0</span></div>
         <div class="triage bg-black text-white">Black<br><span id="blackCount">0</span></div>
     </div>
+
+    <h3 class="text-xl font-semibold mb-4">Patients Information</h3>
+    <div class="flex items-end gap-1">
+      <div class="relative px-5 py-2 bg-white rounded-t-xl shadow font-semibold z-20">
+          All
+        </div>
+
+        <div class="relative px-5 py-2 bg-gray-200 rounded-t-xl text-gray-600 cursor-pointer">
+          Black
+        </div>
+
+        <div class="relative px-5 py-2 bg-red-100 rounded-t-xl text-red-700 cursor-pointer">
+          Red
+        </div>
+
+        <div class="relative px-5 py-2 bg-yellow-100 rounded-t-xl text-yellow-700 cursor-pointer">
+          Yellow
+        </div>
+
+        <div class="relative px-5 py-2 bg-green-100 rounded-t-xl text-green-700 cursor-pointer">
+          Green
+        </div>
+      </div>
+    </div>
+    <div class="bg-white rounded-b-2xl rounded-tr-2xl shadow -mt-px">
+      <table class="w-full text-sm">
+  <thead class="bg-gray-100 text-gray-600">
+    <tr>
+      <th class="px-4 py-3 text-left">ID</th>
+      <th class="px-4 py-3 text-left">Name</th>
+      <th class="px-4 py-3 text-left">Sex</th>
+      <th class="px-4 py-3 text-left">Age</th>
+      <th class="px-4 py-3 text-left">Diagnosis</th>
+      <th class="px-4 py-3 text-left">Priority</th>
+    </tr>
+  </thead>
+
+  <tbody class="divide-y">
+    <tr class="hover:bg-gray-50">
+      <td class="px-4 py-3">001</td>
+      <td class="px-4 py-3 font-medium">Plato</td>
+      <td class="px-4 py-3">Male</td>
+      <td class="px-4 py-3">42</td>
+      <td class="px-4 py-3">Diabetes</td>
+      <td class="px-4 py-3 flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-red-500"></span> Red
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+    </div>
+
+
+
 </div>
 
 <!-- ADD PATIENT -->
@@ -154,7 +209,7 @@
 </aside>
 
       <!-- RIGHT: Form -->
-      <main class="flex-1 flex justify-center">
+      <div class="flex-1 flex justify-center">
         <div class="w-full max-w-3xl bg-white rounded-2xl shadow p-8">
 
           <!-- STEP 1 -->
@@ -236,96 +291,97 @@
     </div>
 
         </div>
-      </main>
+    </div>
 
     </div>
   </div>
 </div>
-
-
+</div>
 <!-- EDIT PATIENT -->
-<div id="edit" class="page hidden">
-   <h2 class="text-2xl font-semibold mb-6">Edit Patient</h2>
+<div id="edit" class="hidden page">
+<h2 class="text-2xl font-semibold mb-6">Edit Patient</h2>
 
-         <!-- SEARCH -->
-      <input id="searchEdit"
-        placeholder="Search by Patient ID or Name"
-        class="input max-w-md mb-6"
-        onkeyup="searchPatient()">
+<!-- SEARCH -->
+<input id="searchEdit"
+    placeholder="Search by Patient ID or Name"
+    class="input max-w-md mb-6"
+    onkeyup="searchPatient()">
 
-      <!-- FORM -->
-      <div id="editForm" class="space-y-6">
+<!-- FORM -->
+<div id="editForm" class="hidden space-y-6 max-w-3xl">
 
-        <!-- BASIC -->
-        <div class="bg-white rounded-2xl p-6 shadow">
-          <h3 class="font-semibold mb-4">Basic Information</h3>
-          <div class="grid grid-cols-2 gap-4">
-            <input type="hidden" id="edit_id">
+<div class="bg-white rounded-2xl p-6 shadow">
+<h3 class="font-semibold mb-4">Basic Information</h3>
+<div class="grid grid-cols-2 gap-4">
+<input type="hidden" id="edit_id">
 
-            <input id="edit_patient_id" class="input" placeholder="Patient ID">
-            <input id="edit_name" class="input" placeholder="Name">
-            <input id="edit_surname" class="input" placeholder="Surname">
+<input id="edit_patient_id" class="input" placeholder="Patient ID">
+<input id="edit_name" class="input" placeholder="Name">
+<input id="edit_surname" class="input" placeholder="Surname">
 
-            <select id="edit_sex" class="input">
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
-            </select>
+<select id="edit_sex" class="input">
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
 
-            <input id="edit_age" type="number" class="input" placeholder="Age">
-            <input id="edit_height" class="input" placeholder="Height (cm)">
-            <input id="edit_weight" class="input col-span-2" placeholder="Weight (kg)">
-          </div>
-        </div>
-
-        <!-- MEDICAL -->
-        <div class="bg-white rounded-2xl p-6 shadow">
-          <h3 class="font-semibold mb-4">Medical Information</h3>
-          <div class="grid grid-cols-2 gap-4">
-            <input id="edit_chronic" class="input" placeholder="Chronic Disease">
-            <input id="edit_allergy" class="input" placeholder="Allergy">
-            <input id="edit_bp" class="input" placeholder="Blood Pressure">
-            <input id="edit_hr" class="input" placeholder="Heart Rate">
-          </div>
-
-          <textarea id="edit_case" class="input mt-4" rows="3" placeholder="Case Description"></textarea>
-          <textarea id="edit_diag" class="input mt-4" rows="3" placeholder="Diagnosis"></textarea>
-        </div>
-
-        <!-- TRIAGE -->
-        <div class="bg-white rounded-2xl p-6 shadow">
-          <h3 class="font-semibold mb-4">Triage & Status</h3>
-
-          <div class="flex items-center gap-4 mb-4">
-            <div id="editTriageColor" class="w-10 h-10 rounded-xl border"></div>
-            <select id="edit_color" class="input flex-1" onchange="updateEditColor(this.value)">
-              <option>Red</option>
-              <option>Yellow</option>
-              <option>Green</option>
-              <option>White</option>
-              <option>Black</option>
-            </select>
-          </div>
-
-          <select id="edit_status" class="input">
-            <option>Waiting</option>
-            <option>Finish</option>
-          </select>
-
-          <textarea id="edit_prescription" class="input mt-4" rows="3" placeholder="Prescription"></textarea>
-        </div>
-
-        <button onclick="saveEdit()"
-          class="w-full bg-teal-500 hover:bg-teal-400 text-white font-semibold py-4 rounded-2xl shadow transition">
-          Save Changes
-        </button>
-
-      </div>
+<input id="edit_age" type="number" class="input" placeholder="Age">
+<input id="edit_height" class="input" placeholder="Height (cm)">
+<input id="edit_weight" class="input" placeholder="Weight (kg)">
+</div>
 </div>
 
+<div class="bg-white rounded-2xl p-6 shadow">
+<h3 class="font-semibold mb-4">Medical Information</h3>
+<div class="grid grid-cols-2 gap-4">
+<input id="edit_chronic" class="input" placeholder="Chronic Disease">
+<input id="edit_allergy" class="input" placeholder="Allergy">
+<input id="edit_bp" class="input" placeholder="Blood Pressure">
+<input id="edit_hr" class="input" placeholder="Heart Rate">
+</div>
 
+<textarea id="edit_case" class="input mt-4" rows="3" placeholder="Case Description"></textarea>
+<textarea id="edit_diag" class="input mt-4" rows="3" placeholder="Diagnosis"></textarea>
+</div>
+
+<div class="bg-white rounded-2xl p-6 shadow">
+<h3 class="font-semibold mb-4">Triage & Status</h3>
+
+<div class="flex items-center gap-4 mb-4">
+<div id="editTriageColor" class="w-10 h-10 rounded-xl border"></div>
+<select id="edit_color"
+    onchange="updateEditColor(this.value)"
+    class="input flex-1">
+<option>Red</option>
+<option>Yellow</option>
+<option>Green</option>
+<option>White</option>
+<option>Black</option>
+</select>
+</div>
+
+<select id="edit_status" class="input">
+<option>Waiting</option>
+<option>Finish</option>
+</select>
+
+<textarea id="edit_prescription" class="input mt-4" rows="3" placeholder="Prescription"></textarea>
+</div>
+
+<button onclick="saveEdit()"
+    class="w-full bg-teal-500 hover:bg-teal-400 text-white font-semibold py-4 rounded-2xl shadow transition">
+Save Changes
+</button>
+
+</div>
+</div>
+
+<div id="status" class="page hidden">
+<h2 class="text-2xl font-semibold">Update Status (Coming Soon)</h2>
+</div>
 </section>
 </main>
+
 
 <!-- STYLES -->
 <style>
@@ -347,6 +403,162 @@ text-align:center;padding:16px;border-radius:12px;font-weight:600;
 }
 .triage span{font-size:1.5rem;font-weight:700;}
 </style>
+
+<!-- SCRIPT -->
+<script>
+    let currentStep = 1;
+
+function showStep(step) {
+  // show form step
+  document.querySelectorAll('.step').forEach(s => s.classList.add('hidden'));
+  document.querySelector(`.step[data-step="${step}"]`).classList.remove('hidden');
+
+  // update vertical stepper
+  document.querySelectorAll('.stepper-item').forEach(item => {
+    item.classList.remove('active');
+    if (Number(item.dataset.step) === step) {
+      item.classList.add('active');
+    }
+  });
+
+  currentStep = step;
+}
+
+function nextStep() {
+  const current = document.querySelector(`.step[data-step="${currentStep}"]`);
+  const inputs = current.querySelectorAll('input, select, textarea');
+
+  for (let input of inputs) {
+    if (!input.checkValidity()) {
+      input.reportValidity();
+      return;
+    }
+  }
+
+  showStep(currentStep + 1);
+}
+
+function prevStep() {
+  showStep(currentStep - 1);
+}
+
+function updateTriageColor(value) {
+  const box = document.getElementById('triageColor');
+  const colors = {
+    Red: '#ef4444',
+    Yellow: '#facc15',
+    Green: '#22c55e',
+    White: '#e5e7eb',
+    Black: '#000000'
+  };
+  box.style.backgroundColor = colors[value] || '#d1d5db';
+}
+
+// Run AFTER page loads
+document.addEventListener('DOMContentLoaded', () => {
+  showStep(1);
+});
+function showPage(id, btn){
+document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('bg-white','shadow'));
+btn.classList.add('bg-white','shadow');
+}
+
+function logout(){
+    window.location.href = "/logout";
+}
+
+
+function updateEditColor(val){
+const c={Red:"#F87171",Yellow:"#FACC15",Green:"#4ADE80",White:"#E5E7EB",Black:"#111827"};
+document.getElementById("editTriageColor").style.background=c[val]||"#D1D5DB";
+}
+
+async function searchPatient(){
+const q=document.getElementById("searchEdit").value;
+if(q.length<2) return;
+
+const r=await fetch(`/search_patient?q=${q}`);
+const d=await r.json();
+if(!d) return;
+
+document.getElementById("editForm").classList.remove("hidden");
+
+edit_id.value=d.id;
+edit_patient_id.value=d.patient_id;
+edit_name.value=d.name;
+edit_surname.value=d.surname;
+edit_sex.value=d.sex;
+edit_age.value=d.age;
+edit_height.value=d.height;
+edit_weight.value=d.weight;
+
+edit_chronic.value=d.chronic_disease;
+edit_allergy.value=d.allergy;
+edit_bp.value=d.blood_pressure;
+edit_hr.value=d.heart_rate;
+edit_case.value=d.case_desc;
+edit_diag.value=d.diagnosis;
+
+edit_color.value=d.color_code;
+edit_status.value=d.status;
+edit_prescription.value=d.prescription;
+
+updateEditColor(d.color_code);
+}
+
+async function saveEdit(){
+await fetch("/update_patient",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+id:edit_id.value,
+patient_id:edit_patient_id.value,
+name:edit_name.value,
+surname:edit_surname.value,
+sex:edit_sex.value,
+age:edit_age.value,
+height:edit_height.value,
+weight:edit_weight.value,
+chronic_disease:edit_chronic.value,
+allergy:edit_allergy.value,
+blood_pressure:edit_bp.value,
+heart_rate:edit_hr.value,
+case_desc:edit_case.value,
+diagnosis:edit_diag.value,
+color_code:edit_color.value,
+status:edit_status.value,
+prescription:edit_prescription.value
+})
+});
+
+alert("Patient updated successfully");
+}
+
+async function loadStats(){
+    const res = await fetch("/stats");
+    const data = await res.json();
+
+    document.getElementById("totalPatients").innerText = data.total;
+    document.getElementById("waitingPatients").innerText = data.waiting;
+    document.getElementById("donePatients").innerText = data.done;
+
+    document.getElementById("redCount").innerText = data.colors.Red;
+    document.getElementById("yellowCount").innerText = data.colors.Yellow;
+    document.getElementById("greenCount").innerText = data.colors.Green;
+    document.getElementById("whiteCount").innerText = data.colors.White;
+    document.getElementById("blackCount").innerText = data.colors.Black;
+}
+
+loadStats();
+
+lucide.createIcons();
+
+document.addEventListener("DOMContentLoaded", () => {
+  showPage("dashboard", document.querySelector(".nav-btn"));
+});
+</script>
 
 </body>
 </html>
