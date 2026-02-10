@@ -179,7 +179,7 @@
 <!-- ADD PATIENT -->
 <div id="add" class="page hidden">
   <h2 class="text-2xl font-semibold mb-6">Add Patient</h2>
-  <form method="POST" action="/add_patient"class="flex justify-center px-8 py-10">
+  <form method="POST" action="/add_patient"class="flex justify-center px-8 py-10" enctype="multipart/form-data">
   <div class="w-full max-w-6xl">
     <div class="flex gap-12">
 
@@ -265,8 +265,8 @@
           <input name="heart_rate" class="input" required placeholder="Heart Rate">
           <input name="blood_type" class="input" required placeholder="Blood Type">
         </div>
-          <textarea id="edit_case" class="input mt-4" rows="3" placeholder="Case Description"></textarea>
-          <textarea id="edit_diag" class="input mt-4" rows="3" placeholder="Diagnosis"></textarea>          
+          <textarea name="case_desc" class="input mt-4" rows="3" placeholder="Case Description"></textarea>
+          <textarea name="diagnosis" class="input mt-4" rows="3" placeholder="Diagnosis"></textarea>          
         <div>
           <hr class="border-gray-200 my-3">
             <p class="font-medium mb-3">Imaging Required</p>
@@ -384,7 +384,7 @@
 <input id="edit_allergy" class="input" placeholder="Allergy">
 <input id="edit_bp" class="input" placeholder="Blood Pressure">
 <input id="edit_hr" class="input" placeholder="Heart Rate">
-<input name="edit_bt" class="input" placeholder="Blood Type">
+<input id="edit_bt" class="input" placeholder="Blood Type">
 </div>
 
 <textarea id="edit_case" class="input mt-4" rows="3" placeholder="Case Description"></textarea>

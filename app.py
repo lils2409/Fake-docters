@@ -28,16 +28,18 @@ class Patient(db.Model):
     sex = db.Column(db.String(10))
     age = db.Column(db.Integer)
     height = db.Column(db.Float)
-    weight = db.Column(db.Float)
+    weight = db.Column(db.Float,)
 
     chronic_disease = db.Column(db.String(200))
     allergy = db.Column(db.String(200))
     blood_pressure = db.Column(db.String(20))
     heart_rate = db.Column(db.String(20))
+    blood_type = db.Column(db.String(20))
+    imaging = db.Column(db.String(255))
     case_desc = db.Column(db.Text)
     diagnosis = db.Column(db.Text)
 
-    color_code = db.Column(db.String(20))
+    color_code = db.Column(db.String(20), nullable=False)
     status = db.Column(db.String(20), default="Waiting")
     prescription = db.Column(db.Text)
 
@@ -94,6 +96,8 @@ def dashboard():
 @app.route("/add_patient", methods=["POST"])
 def add_patient():
     data = request.form
+    imaging_list = request.form.getlist("imaging[]")
+    imaging = ",".join(imaging_list)
 
     patient = Patient(
         patient_id=data.get("patient_id"),
@@ -103,12 +107,16 @@ def add_patient():
         age=data.get("age"),
         height=data.get("height"),
         weight=data.get("weight"),
+
         chronic_disease=data.get("chronic_disease"),
         allergy=data.get("allergy"),
         blood_pressure=data.get("blood_pressure"),
         heart_rate=data.get("heart_rate"),
+        blood_type=data.get("blood_type"),
+        imaging=imaging,
         case_desc=data.get("case_desc"),
         diagnosis=data.get("diagnosis"),
+
         color_code=data.get("color_code"),
         status=data.get("status"),
         prescription=data.get("prescription"),
@@ -143,9 +151,17 @@ def update_patient():
 
     if not patient:
         return jsonify({"success": False})
+    
+    allowed_fields = [
+        "patient_id","name","surname","sex","age","height","weight",
+        "chronic_disease","allergy","blood_pressure","heart_rate",
+        "blood_type","case_desc","diagnosis",
+        "color_code","status","prescription"
+    ]
 
-    for key, value in data.items():
-        setattr(patient, key, value)
+    for field in allowed_fields:
+        if field in data:
+            setattr(patient, field, data[field])
 
     db.session.commit()
     return jsonify({"success": True})

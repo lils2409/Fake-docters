@@ -91,6 +91,7 @@ edit_chronic.value=d.chronic_disease;
 edit_allergy.value=d.allergy;
 edit_bp.value=d.blood_pressure;
 edit_hr.value=d.heart_rate;
+edit_bt.value = d.blood_type;
 edit_case.value=d.case_desc;
 edit_diag.value=d.diagnosis;
 
@@ -99,9 +100,24 @@ edit_status.value=d.status;
 edit_prescription.value=d.prescription;
 
 updateEditColor(d.color_code);
+document.querySelectorAll('#editForm input[name="imaging[]"]').forEach(cb => {
+  cb.checked = false;
+});
+
+if (d.imaging) {
+  const imagingArr = d.imaging.split(",");
+  document.querySelectorAll('#editForm input[name="imaging[]"]').forEach(cb => {
+    if (imagingArr.includes(cb.value)) {
+      cb.checked = true;
+    }
+  });
+}
 }
 
 async function saveEdit(){
+  const imaging = [];
+  document.querySelectorAll('#editForm input[name="imaging[]"]:checked')
+    .forEach(cb => imaging.push(cb.value));
 await fetch("/update_patient",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
@@ -118,10 +134,11 @@ chronic_disease:edit_chronic.value,
 allergy:edit_allergy.value,
 blood_pressure:edit_bp.value,
 heart_rate:edit_hr.value,
+blood_type: edit_bt.value,
+imaging: imaging.join(","),
 case_desc:edit_case.value,
 diagnosis:edit_diag.value,
 color_code:edit_color.value,
-status:edit_status.value,
 prescription:edit_prescription.value
 })
 });
