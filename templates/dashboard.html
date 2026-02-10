@@ -221,7 +221,7 @@
             <h3 class="font-semibold text-lg mb-6">General Information</h3>
 
             <div class="grid grid-cols-2 gap-4">
-              <input name="patient_id" class="input" placeholder="Patient ID" required>
+              <input name="patient_id" class="col-span-2 input" placeholder="Patient ID" required>
               <input name="name" class="input" placeholder="Name" required>
 
               <input name="surname" class="input" placeholder="Surname" required>
@@ -235,7 +235,7 @@
               <input name="age" type="number" class="input" placeholder="Age" required>
               <input name="height" class="input" placeholder="Height (cm)" required>
 
-              <input name="weight" class="input col-span-2" placeholder="Weight (kg)" required>
+              <input name="weight" class="input" placeholder="Weight (kg)" required>
             </div>
 
             <!-- Button -->
@@ -259,38 +259,39 @@
           <input name="allergy" class="input" required placeholder="Allergy">
           <input name="blood_pressure" class="input" required placeholder="Blood Pressure">
           <input name="heart_rate" class="input" required placeholder="Heart Rate">
-          <input name="blood_type" class="input" required placeholder="Blood_type">
-          
-        </div>          
+          <input name="blood_type" class="input" required placeholder="Blood Type">
+        </div>
+          <textarea id="edit_case" class="input mt-4" rows="3" placeholder="Case Description"></textarea>
+          <textarea id="edit_diag" class="input mt-4" rows="3" placeholder="Diagnosis"></textarea>          
         <div>
           <hr class="border-gray-200 my-3">
             <p class="font-medium mb-3">Imaging Required</p>
 
             <div class="flex gap-6">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" name="imaging[]" value="MRI"
+                <input type="checkbox" name="imaging[]" value="xray"
                       class="w-5 h-5 accent-blue-600">
                 X - Ray
               </label>
 
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" name="imaging[]" value="CT"
+                <input type="checkbox" name="imaging[]" value="cbc"
                       class="w-5 h-5 accent-green-600">
                 CBC
               </label>
 
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" name="imaging[]" value="XRAY"
+                <input type="checkbox" name="imaging[]" value="ct_scan"
                       class="w-5 h-5 accent-violet-600">
                 CT - scan
               </label>
                             <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" name="imaging[]" value="MRI"
+                <input type="checkbox" name="imaging[]" value="mri"
                       class="w-5 h-5 accent-indigo-600">
                 MRI
               </label>
                             <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" name="imaging[]" value="MRI"
+                <input type="checkbox" name="imaging[]" value="ultrasound"
                       class="w-5 h-5 accent-cyan-600">
                 Ultrasound
               </label>
@@ -356,7 +357,7 @@
 <div class="grid grid-cols-2 gap-4">
 <input type="hidden" id="edit_id">
 
-<input id="edit_patient_id" class="input" placeholder="Patient ID">
+<input id="edit_patient_id" class="input col-span-2" placeholder="Patient ID">
 <input id="edit_name" class="input" placeholder="Name">
 <input id="edit_surname" class="input" placeholder="Surname">
 
@@ -379,10 +380,45 @@
 <input id="edit_allergy" class="input" placeholder="Allergy">
 <input id="edit_bp" class="input" placeholder="Blood Pressure">
 <input id="edit_hr" class="input" placeholder="Heart Rate">
+<input name="edit_bt" class="input" placeholder="Blood Type">
 </div>
 
 <textarea id="edit_case" class="input mt-4" rows="3" placeholder="Case Description"></textarea>
 <textarea id="edit_diag" class="input mt-4" rows="3" placeholder="Diagnosis"></textarea>
+        <div>
+          <hr class="border-gray-200 my-3">
+            <p class="font-medium mb-3">Imaging Required</p>
+
+            <div class="flex gap-6">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="imaging[]" value="xray"
+                      class="w-5 h-5 accent-blue-600">
+                X - Ray
+              </label>
+
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="imaging[]" value="cbc"
+                      class="w-5 h-5 accent-green-600">
+                CBC
+              </label>
+
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="imaging[]" value="ct_scan"
+                      class="w-5 h-5 accent-violet-600">
+                CT - scan
+              </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="imaging[]" value="mri"
+                      class="w-5 h-5 accent-indigo-600">
+                MRI
+              </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="imaging[]" value="ultrasound"
+                      class="w-5 h-5 accent-cyan-600">
+                Ultrasound
+              </label>
+            </div>
+          </div>
 </div>
 
 <div class="bg-white rounded-2xl p-6 shadow">
@@ -400,11 +436,6 @@
 <option>Black</option>
 </select>
 </div>
-
-<select id="edit_status" class="input">
-<option>Waiting</option>
-<option>Finish</option>
-</select>
 
 <textarea id="edit_prescription" class="input mt-4" rows="3" placeholder="Prescription"></textarea>
 </div>
