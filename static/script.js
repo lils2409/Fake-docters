@@ -168,3 +168,30 @@ lucide.createIcons();
 document.addEventListener("DOMContentLoaded", () => {
   showPage("dashboard", document.querySelector(".nav-btn"));
 });
+
+// Show Popup
+function showLogoutPopup() {
+    const modal = document.getElementById('logoutModal');
+    modal.classList.remove('hidden');
+    //Animation
+    modal.querySelector('div').classList.add('scale-100');
+}
+
+// Close Popup
+function closeLogoutPopup() {
+    const modal = document.getElementById('logoutModal');
+    modal.classList.add('hidden');
+}
+
+// sure to Logout
+function logout() {
+    window.location.href = "/logout"; 
+}
+
+// Close model
+window.onclick = function(event) {
+    const modal = document.getElementById('logoutModal');
+    if (event.target == modal) {
+        closeLogoutPopup();
+    }
+}
