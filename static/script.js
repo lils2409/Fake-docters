@@ -29,6 +29,7 @@ function nextStep() {
   }
 
   showStep(currentStep + 1);
+  
 }
 
 function prevStep() {

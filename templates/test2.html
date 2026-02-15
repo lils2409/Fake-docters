@@ -108,139 +108,252 @@
         <div class="triage bg-black text-white">Black<br><span id="blackCount">0</span></div>
     </div>
 </div>
-
 <!-- ADD PATIENT -->
-<div id="add" class="page hidden">
-  <div class="flex justify-center px-8 py-10">
-  <div class="w-full max-w-6xl">
+<div id="add" class="page hidden bg-gray-50 min-h-screen py-12">
 
-    <!-- Title -->
-    <h2 class="text-2xl font-semibold mb-8">Add Patient</h2>
+  <div class="max-w-6xl mx-auto px-6">
 
-    <div class="flex gap-12">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-10">
+      Add New Patient
+    </h2>
 
-      <!-- LEFT: Stepper -->
-<aside class="w-56 pt-6">
-  <div class="pl-6">
+    <form method="POST" action="/add_patient" enctype="multipart/form-data">
 
-    <!-- STEP 1 -->
-    <div class="stepper-item flex items-start gap-4" data-step="1">
-      <div class="flex flex-col items-center">
-        <div class="step-circle">1</div>
-        <div class="w-px h-12 bg-gray-300"></div>
-      </div>
-      <span class="step-label mt-1">General</span>
-    </div>
+      <div class="flex gap-16">
 
-    <!-- STEP 2 -->
-    <div class="stepper-item flex items-start gap-4" data-step="2">
-      <div class="flex flex-col items-center">
-        <div class="step-circle">2</div>
-        <div class="w-px h-12 bg-gray-300"></div>
-      </div>
-      <span class="step-label mt-1">Medical</span>
-    </div>
+        <!-- STEP NAVIGATION -->
+        <aside class="w-56 pt-4">
+          <div class="space-y-10">
 
-    <!-- STEP 3 (LAST – no line) -->
-    <div class="stepper-item flex items-start gap-4" data-step="3">
-      <div class="flex flex-col items-center">
-        <div class="step-circle">3</div>
-      </div>
-      <span class="step-label mt-1">Triage & Status</span>
-    </div>
-
-  </div>
-</aside>
-
-      <!-- RIGHT: Form -->
-      <div class="flex-1 flex justify-center">
-        <div class="w-full max-w-3xl bg-white rounded-2xl shadow p-8">
-
-          <!-- STEP 1 -->
-          <div class="step" data-step="1">
-            <h3 class="font-semibold text-lg mb-6">Basic Information</h3>
-
-            <div class="grid grid-cols-2 gap-4">
-              <input name="patient_id" class="input" placeholder="Patient ID" required>
-              <input name="name" class="input" placeholder="Name" required>
-
-              <input name="surname" class="input" placeholder="Surname" required>
-              <select name="sex" class="input" required>
-                <option value="">Sex</option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-              </select>
-
-              <input name="age" type="number" class="input" placeholder="Age" required>
-              <input name="height" class="input" placeholder="Height (cm)" required>
-
-              <input name="weight" class="input col-span-2" placeholder="Weight (kg)" required>
+            <div class="stepper-item flex items-start gap-4" data-step="1">
+              <div class="flex flex-col items-center">
+                <div class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-sm font-medium bg-white">
+                  1
+                </div>
+                <div class="w-px h-16 bg-gray-200"></div>
+              </div>
+              <span class="text-sm text-gray-500 mt-1">General</span>
             </div>
 
-            <!-- Button -->
-            <div class="flex justify-end mt-10">
-              <button
-                type="button"
-                onclick="nextStep(1)"
-                class="bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow transition"
-              >
-                Next →
-              </button>
+            <div class="stepper-item flex items-start gap-4" data-step="2">
+              <div class="flex flex-col items-center">
+                <div class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-sm font-medium bg-white">
+                  2
+                </div>
+                <div class="w-px h-16 bg-gray-200"></div>
+              </div>
+              <span class="text-sm text-gray-500 mt-1">Medical</span>
             </div>
+
+            <div class="stepper-item flex items-start gap-4" data-step="3">
+              <div class="flex flex-col items-center">
+                <div class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-sm font-medium bg-white">
+                  3
+                </div>
+              </div>
+              <span class="text-sm text-gray-500 mt-1">Triage</span>
+            </div>
+
           </div>
-          <!-- STEP 2 -->
-    <div class="step hidden" data-step="2">
-      <div class="bg-white rounded-2xl p-6 shadow">
-        <h3 class="font-semibold mb-4">Medical Information</h3>
+        </aside>
 
-        <div class="grid grid-cols-2 gap-4">
-          <input name="chronic_disease" class="input" required placeholder="Chronic Disease">
-          <input name="allergy" class="input" required placeholder="Allergy">
-          <input name="blood_pressure" class="input" required placeholder="Blood Pressure">
-          <input name="heart_rate" class="input" required placeholder="Heart Rate">
+        <!-- FORM CARD -->
+        <div class="flex-1">
+
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-10">
+
+            <!-- STEP 1 -->
+            <div class="step" data-step="1">
+
+              <h3 class="text-lg font-semibold text-gray-800 mb-8">
+                General Information
+              </h3>
+
+              <div class="grid grid-cols-2 gap-6">
+
+                <input name="patient_id"
+                  class="col-span-2 w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  placeholder="Patient ID *" required>
+
+                <input name="name"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  placeholder="First Name *" required>
+
+                <input name="surname"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  placeholder="Surname *" required>
+
+                <select name="sex"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  required>
+                  <option value="">Sex *</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </select>
+
+                <input type="number" name="age"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  placeholder="Age *" required>
+
+                <input name="height"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  placeholder="Height (cm) *" required>
+
+                <input name="weight"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  placeholder="Weight (kg) *" required>
+
+              </div>
+
+              <div class="flex justify-end mt-12">
+                <button type="button"
+                  onclick="nextStep(1)"
+                  class="bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow-sm transition">
+                  Next →
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="step hidden" data-step="2">
+
+              <h3 class="text-lg font-semibold text-gray-800 mb-8">
+                Medical Information
+              </h3>
+
+              <div class="grid grid-cols-2 gap-6">
+
+                <input name="chronic_disease"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  placeholder="Chronic Disease *" required>
+
+                <input name="allergy"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  placeholder="Allergy *" required>
+
+                <input name="blood_pressure"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  placeholder="Blood Pressure *" required>
+
+                <input name="heart_rate"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  placeholder="Heart Rate *" required>
+
+                <input name="blood_type"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  placeholder="Blood Type *" required>
+
+              </div>
+
+              <textarea name="case_desc"
+                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition mt-6"
+                rows="3" placeholder="Case Description"></textarea>
+
+              <textarea name="diagnosis"
+                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition mt-4"
+                rows="3" placeholder="Diagnosis"></textarea>
+
+              <div class="mt-8">
+                <p class="text-sm font-medium text-gray-700 mb-4">
+                  Imaging Required
+                </p>
+
+                <div class="grid grid-cols-3 gap-4 text-sm text-gray-700">
+
+                  <label class="flex items-center gap-2">
+                    <input type="checkbox" name="imaging[]" value="xray" class="accent-teal-500">
+                    X-Ray
+                  </label>
+
+                  <label class="flex items-center gap-2">
+                    <input type="checkbox" name="imaging[]" value="cbc" class="accent-teal-500">
+                    CBC
+                  </label>
+
+                  <label class="flex items-center gap-2">
+                    <input type="checkbox" name="imaging[]" value="ct_scan" class="accent-teal-500">
+                    CT Scan
+                  </label>
+
+                  <label class="flex items-center gap-2">
+                    <input type="checkbox" name="imaging[]" value="mri" class="accent-teal-500">
+                    MRI
+                  </label>
+
+                  <label class="flex items-center gap-2">
+                    <input type="checkbox" name="imaging[]" value="ultrasound" class="accent-teal-500">
+                    Ultrasound
+                  </label>
+
+                </div>
+              </div>
+
+              <div class="flex justify-between mt-12">
+                <button type="button"
+                  onclick="prevStep()"
+                  class="border border-gray-300 text-gray-700 px-8 py-3 rounded-xl hover:bg-gray-100 transition">
+                  Back
+                </button>
+
+                <button type="button"
+                  onclick="nextStep()"
+                  class="bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow-sm transition">
+                  Next →
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="step hidden" data-step="3">
+
+              <h3 class="text-lg font-semibold text-gray-800 mb-8">
+                Triage
+              </h3>
+
+              <div class="flex items-center gap-6 mb-6">
+                <div id="triageColor" class="w-12 h-12 rounded-xl bg-gray-200 border"></div>
+
+                <select name="color_code"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                  onchange="updateTriageColor(this.value)" required>
+                  <option value="">Select Triage *</option>
+                  <option>White</option>
+                  <option>Green</option>
+                  <option>Yellow</option>
+                  <option>Red</option>
+                  <option>Black</option>
+                </select>
+              </div>
+
+              <textarea name="prescription"
+                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                rows="3" placeholder="Prescription *" required></textarea>
+
+              <div class="flex justify-between mt-12">
+                <button type="button"
+                  onclick="prevStep()"
+                  class="border border-gray-300 text-gray-700 px-8 py-3 rounded-xl hover:bg-gray-100 transition">
+                  Back
+                </button>
+
+                <button type="submit"
+                  class="bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow-sm transition">
+                  Save Patient
+                </button>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </div>
 
-      <div class="flex justify-between mt-6">
-        <button type="button" class="btn-secondary bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow transition" onclick="prevStep()">Back</button>
-        <button type="button" class="btn-primary bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow transition" onclick="nextStep()">Next</button>
-      </div>
-    </div>
+    </form>
 
-    <!-- STEP 3 -->
-    <div class="step hidden" data-step="3">
-      <div class="bg-white rounded-2xl p-6 shadow">
-        <h3 class="font-semibold mb-4">Triage</h3>
-
-        <div class="flex items-center gap-4 mb-4">
-          <div id="triageColor" class="w-10 h-10 rounded-xl bg-gray-300 border"></div>
-          <select name="color_code" class="input" onchange="updateTriageColor(this.value)" required>
-            <option value="">Select Triage</option>
-            <option>Red</option>
-            <option>Yellow</option>
-            <option>Green</option>
-            <option>White</option>
-            <option>Black</option>
-          </select>
-        </div>
-
-        <textarea name="prescription" class="input" rows="3" placeholder="Prescription" required></textarea>
-      </div>
-
-      <div class="flex justify-between mt-6">
-        <button type="button" class="btn-secondary bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow transition" onclick="prevStep()">Back</button>
-        <button type="submit" class="btn-primary bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded-xl shadow transition">Save Patient</button>
-      </div>
-    </div>
-
-        </div>
-    </div>
-
-    </div>
   </div>
 </div>
-</div>
+
 <!-- EDIT PATIENT -->
 <div id="edit" class="hidden page">
 <h2 class="text-2xl font-semibold mb-6">Edit Patient</h2>
