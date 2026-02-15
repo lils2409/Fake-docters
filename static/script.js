@@ -213,3 +213,5 @@ document.addEventListener("DOMContentLoaded", () => {
   loadStats();
   loadActivePatients();
 });
+
+lucide.createIcons();
