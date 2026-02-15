@@ -193,7 +193,8 @@ async function loadActivePatients() {
     table.innerHTML += `
       <tr class="hover:bg-gray-50 transition">
         <td class="px-6 py-4">${p.id}</td>
-        <td class="px-6 py-4 font-medium">${p.name}</td>
+        <td class="px-6 py-4">${p.name}</td>
+        <td class="px-6 py-4">${p.surname}</td>
         <td class="px-6 py-4">${p.sex}</td>
         <td class="px-6 py-4">${p.age}</td>
         <td class="px-6 py-4">${p.diagnosis || "-"}</td>
