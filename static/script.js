@@ -59,11 +59,6 @@ document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('bg-white','
 btn.classList.add('bg-white','shadow');
 }
 
-function logout(){
-    window.location.href = "/logout";
-}
-
-
 function updateEditColor(val){
 const c={Red:"#F87171",Yellow:"#FACC15",Green:"#4ADE80",White:"#E5E7EB",Black:"#111827"};
 document.getElementById("editTriageColor").style.background=c[val]||"#D1D5DB";
@@ -162,10 +157,62 @@ async function loadStats(){
     document.getElementById("blackCount").innerText = data.colors.Black;
 }
 
-loadStats();
+// Show Logout Popup
+function showLogoutPopup() {
+  const modal = document.getElementById("logoutModal");
+  modal.classList.remove("hidden");
+}
 
-lucide.createIcons();
+// Close Logout Popup
+function closeLogoutPopup() {
+  const modal = document.getElementById("logoutModal");
+  modal.classList.add("hidden");
+}
 
+// Confirm Logout
+function confirmLogout() {
+  window.location.href = "/logout";
+}
+
+// Close modal when clicking outside
+window.addEventListener("click", (event) => {
+  const modal = document.getElementById("logoutModal");
+  if (event.target === modal) {
+    closeLogoutPopup();
+  }
+});
+
+async function loadActivePatients() {
+  const res = await fetch("/api/active_patients");
+  const patients = await res.json();
+
+  const table = document.getElementById("activePatientsTable");
+  table.innerHTML = "";
+
+  patients.forEach(p => {
+    table.innerHTML += `
+      <tr class="hover:bg-gray-50 transition">
+        <td class="px-6 py-4">${p.id}</td>
+        <td class="px-6 py-4 font-medium">${p.name}</td>
+        <td class="px-6 py-4">${p.sex}</td>
+        <td class="px-6 py-4">${p.age}</td>
+        <td class="px-6 py-4">${p.diagnosis || "-"}</td>
+        <td class="px-6 py-4">
+          <span class="px-3 py-1 rounded-full text-xs font-semibold
+            ${p.status === "Waiting" ? "bg-yellow-100 text-yellow-700" :
+              p.status === "Investigating" ? "bg-blue-100 text-blue-700" :
+              "bg-green-100 text-green-700"}">
+            ${p.status}
+          </span>
+        </td>
+      </tr>
+    `;
+  });
+}
 document.addEventListener("DOMContentLoaded", () => {
   showPage("dashboard", document.querySelector(".nav-btn"));
+  loadStats();
+  loadActivePatients();
 });
+
+lucide.createIcons();

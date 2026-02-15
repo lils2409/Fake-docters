@@ -208,6 +208,29 @@ def register():
 
     return render_template("register.html")
 
+# ================= ACTIVE PATIENTS =================
+@app.route("/api/active_patients")
+def active_patients():
+    patients = (
+        Patient.query
+        .filter(Patient.status != "Completed")
+        .order_by(Patient.patient_id.asc())
+        .all()
+    )
+
+    result = []
+    for p in patients:
+        result.append({
+            "id": p.patient_id,
+            "name": f"{p.name} {p.surname}",
+            "sex": p.sex,
+            "age": p.age,
+            "diagnosis": p.diagnosis,
+            "status": p.status
+        })
+
+    return jsonify(result)
+
 # ================= RUN =================
 if __name__ == "__main__":
     app.run(debug=True)

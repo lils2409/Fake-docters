@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>MedFlow Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
       .step-circle {
         width: 32px;
@@ -74,7 +75,7 @@
     <div class="border-t border-white/40 my-6"></div>
 
     <!-- LOGOUT -->
-    <button onclick="logout()"
+    <button onclick="showLogoutPopup()"
         class="flex items-center gap-3 text-red-600 font-semibold hover:bg-white/20 px-4 py-3 rounded-xl transition">
         <i data-lucide="log-out"></i> Log out
     </button>
@@ -181,22 +182,7 @@
           </tr>
         </thead>
 
-        <tbody class="divide-y text-gray-700">
-          <tr class="hover:bg-gray-50 transition">
-            <td class="px-6 py-4">001</td>
-            <td class="px-6 py-4 font-medium">Plato</td>
-            <td class="px-6 py-4">Male</td>
-            <td class="px-6 py-4">42</td>
-            <td class="px-6 py-4">Diabetes</td>
-            <td class="px-6 py-4">
-              <select class="px-3 py-1 rounded-full border text-sm focus:outline-none">
-                <option>History Taking</option>
-                <option>Investigating</option>
-                <option>Completed</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
+        <tbody id="activePatientsTable" class="divide-y text-gray-700"></tbody>
       </table>
     </div>
   </div>
@@ -506,6 +492,28 @@ text-align:center;padding:16px;border-radius:12px;font-weight:600;
 </style>
 <script src="https://unpkg.com/lucide@latest" defer></script>
 <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+
+<!-- LOGOUT POPUP -->
+<div id="logoutModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-2xl shadow-lg w-full max-w-sm p-8 text-center">
+
+    <h2 class="text-xl font-semibold mb-4">Confirm Logout</h2>
+    <p class="text-gray-600 mb-6">Are you sure you want to logout?</p>
+
+    <div class="flex justify-center gap-4">
+      <button onclick="closeLogoutPopup()"
+        class="px-6 py-2 rounded-xl border font-semibold hover:bg-gray-100">
+        Cancel
+      </button>
+
+      <button onclick="logout()"
+        class="px-6 py-2 rounded-xl bg-red-500 text-white font-semibold hover:bg-red-400">
+        Logout
+      </button>
+    </div>
+
+  </div>
+</div>
 
 </body>
 </html>
