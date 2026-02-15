@@ -181,22 +181,7 @@
           </tr>
         </thead>
 
-        <tbody class="divide-y text-gray-700">
-          <tr class="hover:bg-gray-50 transition">
-            <td class="px-6 py-4">001</td>
-            <td class="px-6 py-4 font-medium">Plato</td>
-            <td class="px-6 py-4">Male</td>
-            <td class="px-6 py-4">42</td>
-            <td class="px-6 py-4">Diabetes</td>
-            <td class="px-6 py-4">
-              <select class="px-3 py-1 rounded-full border text-sm focus:outline-none">
-                <option>History Taking</option>
-                <option>Investigating</option>
-                <option>Completed</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
+        <tbody id="activePatientsTable" class="divide-y text-gray-700"></tbody>
       </table>
     </div>
   </div>
@@ -527,18 +512,6 @@ text-align:center;padding:16px;border-radius:12px;font-weight:600;
 
   </div>
 </div>
-
-function showLogoutPopup() {
-  document.getElementById("logoutModal").classList.remove("hidden");
-}
-
-function closeLogoutPopup() {
-  document.getElementById("logoutModal").classList.add("hidden");
-}
-
-function logout() {
-  window.location.href = "/logout";
-}
 
 </body>
 </html>
