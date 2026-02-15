@@ -104,77 +104,107 @@
         </div>
     </div>
 
+
     <!-- TRIAGE LEVELS -->
-    <h3 class="text-xl font-semibold mb-4">Triage Levels</h3>
-    <div class="grid grid-cols-5 gap-4">
-        <div class="triage bg-gray-100 text-gray-700">White<br><span id="whiteCount">0</span></div>
-        <div class="triage bg-green-100 text-green-700">Green<br><span id="greenCount">0</span></div>
-        <div class="triage bg-yellow-100 text-yellow-700">Yellow<br><span id="yellowCount">0</span></div>
-        <div class="triage bg-red-100 text-red-700">Red<br><span id="redCount">0</span></div>
-        <div class="triage bg-black text-white">Black<br><span id="blackCount">0</span></div>
+    
+    <div class="space-y-8">
+
+  <!-- TRIAGE OVERVIEW -->
+  <div>
+    <h3 class="text-xl font-semibold text-gray-700 mb-6">
+      Triage Overview
+    </h3>
+
+    <div class="grid grid-cols-5 gap-6">
+
+      <!-- WHITE -->
+      <div class="triage-card border-l-4 border-gray-400 bg-white rounded-2xl shadow-sm p-6 cursor-pointer hover:shadow-md transition">
+        <p class="text-sm text-gray-500">White</p>
+        <p class="text-3xl font-bold text-gray-800 mt-2">12</p>
+        <p class="text-xs text-gray-400 mt-1">Active Patients</p>
+      </div>
+
+      <!-- GREEN -->
+      <div class="triage-card border-l-4 border-green-500 bg-white rounded-2xl shadow-sm p-6 cursor-pointer hover:shadow-md transition">
+        <p class="text-sm text-gray-500">Green</p>
+        <p class="text-3xl font-bold text-gray-800 mt-2">8</p>
+        <p class="text-xs text-gray-400 mt-1">Active Patients</p>
+      </div>
+
+      <!-- YELLOW -->
+      <div class="triage-card border-l-4 border-yellow-400 bg-white rounded-2xl shadow-sm p-6 cursor-pointer hover:shadow-md transition">
+        <p class="text-sm text-gray-500">Yellow</p>
+        <p class="text-3xl font-bold text-gray-800 mt-2">5</p>
+        <p class="text-xs text-gray-400 mt-1">Active Patients</p>
+      </div>
+
+      <!-- RED -->
+      <div class="triage-card border-l-4 border-red-500 bg-white rounded-2xl shadow-sm p-6 cursor-pointer hover:shadow-md transition">
+        <p class="text-sm text-gray-500">Red</p>
+        <p class="text-3xl font-bold text-gray-800 mt-2">3</p>
+        <p class="text-xs text-gray-400 mt-1">Active Patients</p>
+      </div>
+
+      <!-- BLACK -->
+      <div class="triage-card border-l-4 border-black bg-white rounded-2xl shadow-sm p-6 cursor-pointer hover:shadow-md transition">
+        <p class="text-sm text-gray-500">Black</p>
+        <p class="text-3xl font-bold text-gray-800 mt-2">1</p>
+        <p class="text-xs text-gray-400 mt-1">Active Patients</p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ACTIVE PATIENTS TABLE -->
+  <div>
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-semibold text-gray-700">
+        Active Patients
+      </h3>
+
+      <button class="text-sm text-gray-500 hover:text-gray-700">
+        Show All
+      </button>
     </div>
 
-    <h3 class="text-xl font-semibold mb-4 my-6">Active Patients</h3>
-    <div class="flex items-end gap-4">
-              <div class="relative px-5 py-2 bg-blue-100 rounded-t-xl text-blue-600 z-20">
-                  All
-                </div>
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+      <table class="w-full text-sm table-fixed">
+        <thead class="bg-gray-50 text-gray-500 uppercase text-xs">
+          <tr>
+            <th class="px-6 py-4 text-left">ID</th>
+            <th class="px-6 py-4 text-left">Name</th>
+            <th class="px-6 py-4 text-left">Sex</th>
+            <th class="px-6 py-4 text-left">Age</th>
+            <th class="px-6 py-4 text-left">Diagnosis</th>
+            <th class="px-6 py-4 text-left">Status</th>
+          </tr>
+        </thead>
 
-                <div class="relative px-5 py-2 bg-gray-200 rounded-t-xl text-gray-600 cursor-pointer">
-                  Black
-                </div>
-
-                <div class="relative px-5 py-2 bg-red-100 rounded-t-xl text-red-700 cursor-pointer">
-                  Red
-                </div>
-
-                <div class="relative px-5 py-2 bg-yellow-100 rounded-t-xl text-yellow-700 cursor-pointer">
-                  Yellow
-                </div>
-
-                <div class="relative px-5 py-2 bg-green-100 rounded-t-xl text-green-700 cursor-pointer">
-                  Green
-                </div>
-
-                <div class="relative px-5 py-2 bg-white rounded-t-xl text-black cursor-pointer">
-                  White
-                </div>
+        <tbody class="divide-y text-gray-700">
+          <tr class="hover:bg-gray-50 transition">
+            <td class="px-6 py-4">001</td>
+            <td class="px-6 py-4 font-medium">Plato</td>
+            <td class="px-6 py-4">Male</td>
+            <td class="px-6 py-4">42</td>
+            <td class="px-6 py-4">Diabetes</td>
+            <td class="px-6 py-4">
+              <select class="px-3 py-1 rounded-full border text-sm focus:outline-none">
+                <option>History Taking</option>
+                <option>Investigating</option>
+                <option>Completed</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-            <div class="bg-white rounded-b-2xl rounded-tr-2xl shadow -mt-px">
-              <table class="w-full text-sm table-fixed">
-                <thead class="bg-gray-100 text-gray-600">
-                <tr>
-                  <th class="px-4 py-3 text-left w-1/6">ID</th>
-                  <th class="px-4 py-3 text-left w-1/6">Name</th>
-                  <th class="px-4 py-3 text-left w-1/6">Sex</th>
-                  <th class="px-4 py-3 text-left w-1/6">Age</th>
-                  <th class="px-4 py-3 text-left w-1/6">Diagnosis</th>
-                  <th class="px-4 py-3 text-left w-1/6">Status</th>
-                </tr>
-                </thead>
+  </div>
 
-                <tbody class="divide-y">
-                  <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3">001</td>
-                    <td class="px-4 py-3 font-medium">Plato</td>
-                    <td class="px-4 py-3">Male</td>
-                    <td class="px-4 py-3">42</td>
-                    <td class="px-4 py-3">Diabetes</td>
-                    <td><select
-                        class="px-3 py-1 rounded-full text-sm font-medium
-                              bg-white-100 text-gray-800
-                              focus:outline-none cursor-pointer"
-                      >
-                        <option value="waiting">History Taking</option>
-                        <option value="imaging">Investigating</option>
-                        <option value="done">Completed</option>
-                      </select>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
 </div>
+</div>
+        
+    
 
 <!-- ADD PATIENT -->
 <div id="add" class="page hidden">
