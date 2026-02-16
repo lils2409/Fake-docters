@@ -188,10 +188,23 @@ async function loadActivePatients() {
   const table = document.getElementById("activePatientsTable");
   table.innerHTML = "";
 
+  const triageColors = {
+  Red: "#ef4444",
+  Yellow: "#facc15",
+  Green: "#22c55e",
+  White: "#e5e7eb",
+  Black: "#000000"
+};
+
   patients.forEach(p => {
     table.innerHTML += `
       <tr class="hover:bg-gray-50 transition">
-        <td class="px-6 py-4">${p.id}</td>
+         <td class="px-6 py-4">
+            <div class="w-4 h-4 rounded-full border"
+                style="background:${triageColors[p.color] || '#9ca3af'}">
+            </div>
+          </td>
+
         <td class="px-6 py-4">${p.patient_id}</td>
         <td class="px-6 py-4">${p.name}</td>
         <td class="px-6 py-4">${p.surname}</td>
