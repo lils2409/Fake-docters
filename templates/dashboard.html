@@ -43,10 +43,16 @@
 <!-- SIDEBAR -->
 <aside class="w-64 bg-[#7FCBC3] flex flex-col px-6 py-8 h-screen overflow-hidden">
 
-    <!-- LOGO -->
-    <h1 class="text-3xl font-bold text-blue-600 mb-10">
-        MED<span class="text-teal-700">FLOW</span>
-    </h1>
+     <!-- LOGO -->
+    <div class="flex flex-col items-center mb-10">
+        <img src="{{ url_for('static', filename='Image1.png') }}"
+            alt="MedFlow Logo"
+            class="w-24 h-auto mb-2">
+ 
+        <h1 class="text-3xl font-bold text-blue-600">
+            MED<span class="text-teal-700">FLOW</span>
+        </h1>
+    </div>
 
     <!-- NAV -->
     <nav class="space-y-4 flex-1">
@@ -93,11 +99,11 @@
     <div class="grid grid-cols-3 gap-6 mb-10">
         <div class="bg-white rounded-2xl p-6 shadow">
             <p class="text-sm text-gray-500">Total Patients</p>
-            <p id="totalPatients" class="text-4xl font-bold text-gray-900">0</p>
+            <p id="totalPatients" class="text-4xl font-bold text-blue-600">0</p>
         </div>
         <div class="bg-white rounded-2xl p-6 shadow">
             <p class="text-sm text-gray-500">Waiting</p>
-            <p id="waitingPatients" class="text-4xl font-bold text-yellow-500">0</p>
+            <p id="waitingPatients" class="text-4xl font-bold text-amber-500">0</p>
         </div>
         <div class="bg-white rounded-2xl p-6 shadow">
             <p class="text-sm text-gray-500">Completed</p>
