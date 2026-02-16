@@ -203,11 +203,8 @@ async function loadActivePatients() {
             class="px-3 py-1 rounded-full text-sm font-medium border border-gray-200 bg-white focus:outline-none cursor-pointer"
             onchange="updateStatus(${p.id}, this.value)"
           >
-            <option value="History Taking" ${p.status === "History Taking" ? "selected" : ""}>
-              History Taking
-            </option>
-            <option value="Investigating" ${p.status === "Investigating" ? "selected" : ""}>
-              Investigating
+            <option value="Waiting" ${p.status === "Waiting" ? "selected" : ""}>
+              Waiting
             </option>
             <option value="Completed" ${p.status === "Completed" ? "selected" : ""}>
               Completed

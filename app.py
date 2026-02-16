@@ -170,7 +170,7 @@ def update_patient():
 def stats():
     total = Patient.query.count()
     waiting = Patient.query.filter_by(status="Waiting").count()
-    done = Patient.query.filter_by(status="Finish").count()
+    done = Patient.query.filter_by(status="Completed").count()
 
     colors = {}
     for c in ["Red", "Yellow", "Green", "White", "Black"]:
@@ -213,7 +213,6 @@ def register():
 def active_patients():
     patients = (
         Patient.query
-        .filter(Patient.status != "Completed")
         .order_by(Patient.patient_id.asc())
         .all()
     )
