@@ -156,7 +156,7 @@ def update_patient():
         "patient_id","name","surname","sex","age","height","weight",
         "chronic_disease","allergy","blood_pressure","heart_rate",
         "blood_type","case_desc","diagnosis",
-        "color_code","status","prescription"
+        "color_code","status","prescription","status"
     ]
 
     for field in allowed_fields:
@@ -221,7 +221,8 @@ def active_patients():
     result = []
     for p in patients:
         result.append({
-            "id": p.patient_id,
+            "id": p.id,                     # ✅ used for updating
+            "patient_id": p.patient_id,     # ✅ used for display
             "name": p.name,
             "surname": p.surname,
             "sex": p.sex,
