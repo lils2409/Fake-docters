@@ -169,8 +169,7 @@ function closeLogoutPopup() {
   modal.classList.add("hidden");
 }
 
-// Confirm Logout
-function confirmLogout() {
+function logout() {
   window.location.href = "/logout";
 }
 
