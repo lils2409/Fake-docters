@@ -235,6 +235,18 @@ def active_patients():
 
     return jsonify(result)
 
+@app.route("/delete_patient/<int:id>", methods=["DELETE"])
+def delete_patient(id):
+    patient = Patient.query.get(id)
+ 
+    if not patient:
+        return jsonify({"error": "Patient not found"}), 404
+ 
+    db.session.delete(patient)
+    db.session.commit()
+ 
+    return jsonify({"message": "Patient deleted"})
+
 # ================= RUN =================
 if __name__ == "__main__":
     app.run(debug=True)

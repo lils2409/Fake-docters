@@ -224,6 +224,12 @@ async function loadActivePatients() {
             </option>
           </select>
         </td>
+        <td class="px-6 py-4 flex gap-2">
+          <button onclick="deletePatient(${p.id})"
+            class="px-3 py-1 text-sm rounded bg-red-500 text-white hover:bg-red-400">
+            Delete
+          </button>
+        </td>
       </tr>
     `;
   });
@@ -252,5 +258,21 @@ document.addEventListener("DOMContentLoaded", () => {
   loadStats();
   loadActivePatients();
 });
+
+async function deletePatient(id) {
+  if (!confirm("Are you sure you want to delete this patient?")) return;
+
+  const res = await fetch(`/delete_patient/${id}`, {
+    method: "DELETE"
+  });
+
+  if (res.ok) {
+    alert("Patient deleted");
+    loadActivePatients(); // refresh table
+    loadStats();          // update dashboard numbers
+  } else {
+    alert("Failed to delete patient");
+  }
+}
 
 lucide.createIcons();
