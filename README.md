@@ -18,6 +18,7 @@ View dashboard statistics
 Track patient triage color levels
 
 🚀 Features
+
 🔐 Authentication
 
 Admin and Staff roles
