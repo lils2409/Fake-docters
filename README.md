@@ -11,6 +11,7 @@ This system allows hospital staff to:
 -Track patient triage color levels
 
 🚀 Features
+
 🔐 Authentication
 
 Admin and Staff roles
