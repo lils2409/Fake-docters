@@ -220,8 +220,8 @@ def active_patients():
     result = []
     for p in patients:
         result.append({
-            "id": p.id,                     # ✅ used for updating
-            "patient_id": p.patient_id,     # ✅ used for display
+            "id": p.id,                     #used for updating
+            "patient_id": p.patient_id,     #used for display
             "name": p.name,
             "surname": p.surname,
             "sex": p.sex,
